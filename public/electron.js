@@ -4,8 +4,10 @@ const path = require('path');
 const isDev = require('electron-is-dev');
 let mainWindow;
 
+console.log(process.versions.electron);
+
 if (process.env.NODE_ENV === 'development') {
-  const { default: installExtension, REACT_DEVELOPER_TOOLS } = require('electron-devtools-installer');
+  const { default: installExtension, REACT_DEVELOPER_TOOLS, REDUX_DEVTOOLS } = require('electron-devtools-installer');
   function addDevTools() {
     app.whenReady().then(() => {
     installExtension(REACT_DEVELOPER_TOOLS)
@@ -46,3 +48,4 @@ app.on('activate', () => {
     createWindow();
   }
 });
+
