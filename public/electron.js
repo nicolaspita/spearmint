@@ -2,28 +2,12 @@ const { app, BrowserWindow } = require('electron');
 const path = require('path');
 const isDev = require('electron-is-dev');
 let mainWindow;
-
-<<<<<<< HEAD
 if (isDev) console.log('electron version', process.versions.electron);
-
 if (isDev) {
   const {
     default: installExtension,
     REACT_DEVELOPER_TOOLS,
   } = require('electron-devtools-installer');
-=======
-<<<<<<< HEAD
-console.log(process.versions.electron);
-
-if (process.env.NODE_ENV === 'development') {
-  const { default: installExtension, REACT_DEVELOPER_TOOLS, REDUX_DEVTOOLS } = require('electron-devtools-installer');
-=======
-if (isDev) console.log('electron version', process.versions.electron)
-
-if (isDev) {
-  const { default: installExtension, REACT_DEVELOPER_TOOLS } = require('electron-devtools-installer');
->>>>>>> 4aebe7cc512a26bee2256db32e503fad7b4b3253
->>>>>>> 1382f5a99595b176377126ac22be1342c9687ad8
   function addDevTools() {
     app.whenReady().then(() => {
       installExtension(REACT_DEVELOPER_TOOLS)
@@ -48,11 +32,9 @@ function createWindow() {
   );
   mainWindow.on('closed', () => (mainWindow = null));
 }
-
 if (isDev) {
   app.on('ready', addDevTools);
 }
-
 app.on('ready', createWindow);
 app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') {
