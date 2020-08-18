@@ -8,6 +8,14 @@ require('dotenv').config();
 const ProjectLoader = () => {
   const [, dispatchToGlobal] = useContext(GlobalContext);
 
+  const readMe = 'https://github.com/open-source-labs/spearmint';
+
+  let openReadMe = false;
+
+  const toggleReadMe = () => {
+    openReadMe = !openReadMe;
+  };
+
   const addHttps = (url) => {
     if (url.indexOf('http://') === 0 || url.indexOf('https://') === 0) {
       return url;
@@ -56,6 +64,8 @@ const ProjectLoader = () => {
             <span className={styles.text}>Select your application</span> <br />
             <OpenFolder inNavBar={false} />
           </div>
+          <button onClick={toggleReadMe}>Help</button>
+          {openReadMe ? <webview src={readMe} /> : null}
         </div>
       </section>
     </div>
