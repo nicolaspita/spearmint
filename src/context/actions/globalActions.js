@@ -19,7 +19,7 @@ export const actionTypes = {
   UPDATE_FILE_SHOW: 'UPDATE_FILE_SHOW',
   OPEN_BROWSER_DOCS: 'OPEN_BROWSER_DOCS',
   NEW_TEST_CLOSE_BROWSER_DOCS: 'NEW_TEST_CLOSE_BROWSER_DOCS',
-  EXPORT_T: 'EXPORT',
+  EXPORT: 'EXPORT',
   SET_FILE_PATH: 'SET_FILE_PATH',
 };
 
@@ -106,7 +106,7 @@ export const resetToProjectUrl = () => ({
 });
 
 export const toggleExportBool = () => ({
-  type: actionTypes.EXPORT_T,
+  type: actionTypes.EXPORT,
 });
 
 export const setFilePath = (filePath) => ({
