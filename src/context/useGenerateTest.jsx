@@ -300,7 +300,7 @@ function useGenerateTest(test, projectFilePath) {
 
     const addLCPfunction = () => {
       testFileCode += `      
-          function getLargestContentfulPaint() {
+          const getLargestContentfulPaint = () => {
             window.largestContentfulPaint = 0;
         
             const observer = new PerformanceObserver((list) => {
@@ -320,13 +320,34 @@ function useGenerateTest(test, projectFilePath) {
           }`;
     };
 
+    /* formSubmit()
+      - utilizes page.tap/click/type to fill out a form within a webpage
+      - returns a promise containing the form data
+
+    */
+
+    const addFormSubmission = () => {
+      testFileCode += 'yo yo yo yo ';
+      /* 
+      because the form will not always be a certain number of elements we have to make this modular
+      so give them an add field option within the modal
+      testFileCode +=
+        const {varName} = await page.$('[data-testid=${varName}]')
+      */
+    };
+
     const addPuppeteerImportStatements = () => {
       puppeteerTestCase.puppeteerStatements.forEach((statement) => {
         switch (statement.type) {
           case 'paintTiming':
             testFileCode = `import puppeteer from 'puppeteer';\n`;
+            // addPuppeteerBaseTestCode();
             addLCPfunction();
             return;
+          case 'formSubmission':
+            testFileCode = `import puppeteer from 'puppeteer';\n`;
+            addPuppeteerBaseTestCode();
+            addFormSubmission();
           default:
             return statement;
         }
@@ -339,6 +360,8 @@ function useGenerateTest(test, projectFilePath) {
         switch (statement.type) {
           case 'paintTiming':
             return addPuppeteerPaintTiming(statement);
+          case 'formSubmission':
+            return;
           default:
             return statement;
         }
@@ -584,6 +607,26 @@ function useGenerateTest(test, projectFilePath) {
         expect(response.${statement.expectedResponse}).toBe(${statement.value});`;
     };
 
+    // Puppeteer Base Test Code
+    const addPuppeteerBaseTestCode = (statement) => {
+      const browserOptions = {};
+
+      testFileCode += `
+        test('${statement.describe}'), () => {
+          beforeAll( async () => {
+            const browser = await puppeteer.launch(
+              ${
+                statement.browserOptions.length
+                  ? JSON.stringify(browserOptions).replace(/"([^"]+)":/g, '$1:')
+                  : '{}'
+              }
+            );
+            const page = await browser.newPage();
+            await page.goto('${statement.url}');
+          })
+        }
+      `;
+    };
     // Puppeteer Form Jest Test Code
     const addPuppeteerPaintTiming = (statement) => {
       const browserOptions = {};
@@ -601,11 +644,11 @@ function useGenerateTest(test, projectFilePath) {
       }
 
       testFileCode += `
-          describe('${statement.describe}', () => {
+          test('${statement.describe}', () => {
             let paints, lcp;
             beforeAll( async () => {
-              let app = '${statement.url}';
-              let browser = await puppeteer.launch(${
+              const app = '${statement.url}';
+              const browser = await puppeteer.launch(${
                 statement.browserOptions.length
                   ? JSON.stringify(browserOptions).replace(/"([^"]+)":/g, '$1:')
                   : '{}'
@@ -626,7 +669,7 @@ function useGenerateTest(test, projectFilePath) {
               });
               await browser.close();
             })
-              
+    
             it('${statement.firstPaintIt}', async () => {
               expect(paints['first-paint']).toBeLessThan(${statement.firstPaintTime})
             })
@@ -639,6 +682,9 @@ function useGenerateTest(test, projectFilePath) {
           });
         `;
     };
+
+    // add additional testing styles here from puppeteer
+
     switch (test) {
       case 'react':
         var reactTestCase = testState;

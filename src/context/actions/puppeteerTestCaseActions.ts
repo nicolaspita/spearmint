@@ -1,11 +1,13 @@
 import { PuppeteerStatements } from '../../utils/puppeteerTypes';
+import { act } from '@testing-library/react';
 
 export const actionTypes = {
   TOGGLE_PUPPETEER: 'TOGGLE_PUPPETEER',
   CREATE_NEW_PUPPETEER_TEST: 'CREATE_NEW_PUPPETEER_TEST',
   DELETE_PUPPETEER_TEST: 'DELETE_PUPPETEER_TEST',
   ADD_PUPPETEER_PAINT_TIMING: 'ADD_PUPPETEER_PAINT_TIMING',
-  DELETE_PUPPETEER_PAINT_TIMING: 'DELETE_PUPPETEER_PAINT_TIMING',
+  // DELETE_PUPPETEER_PAINT_TIMING: 'DELETE_PUPPETEER_PAINT_TIMING',
+  ADD_PUPPETEER_FORM_TESTING: 'ADD_PUPPETEER_FORM_TESTING',
   ADD_BROWSER_OPTIONS: 'ADD_BROWSER_OPTIONS',
   UPDATE_PAINT_TIMING: 'UPDATE_PAINT_TIMING',
   DELETE_BROWSER_OPTION: 'DELETE_BROWSER_OPTION',
@@ -30,6 +32,10 @@ export const deletePuppeteerTest = (id: number) => ({
 
 export const addPuppeteerPaintTiming = () => ({
   type: actionTypes.ADD_PUPPETEER_PAINT_TIMING,
+});
+
+export const addPuppeteerFormTesting = () => ({
+  type: actionTypes.ADD_PUPPETEER_FORM_TESTING,
 });
 
 export const addBrowserOption = (id: number) => ({

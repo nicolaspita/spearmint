@@ -1,30 +1,27 @@
 import React, { useContext } from 'react';
 import { Draggable } from 'react-beautiful-dnd';
-import styles from './PaintTiming.module.scss';
-import {
-  deletePuppeteerTest,
-  updatePaintTiming,
-} from '../../../context/actions/puppeteerTestCaseActions';
+import styles from './FormTesting.module.scss';
+import { deletePuppeteerTest } from '../../../context/actions/puppeteerTestCaseActions';
 import { PuppeteerTestCaseContext } from '../../../context/reducers/puppeteerTestCaseReducer';
 import ToolTip from '../../ToolTip/ToolTip';
-import PuppeteerBrowserSetting from '../PuppeteerBrowerSetting/PuppeteerBrowserSetting';
 
 const closeIcon = require('../../../assets/images/close.png');
 const dragIcon = require('../../../assets/images/drag-vertical.png');
 const questionIcon = require('../../../assets/images/help-circle.png');
 
-const PaintTiming = ({ paintTiming, index }) => {
+const FormTesting = ({ formTesting, index }) => {
   const [, dispatchToPuppeteerTestCase] = useContext(PuppeteerTestCaseContext);
 
-  const handleChangePaintTimingFields = (e, field) => {
-    dispatchToPuppeteerTestCase(updatePaintTiming(paintTiming.id, field, e.target.value));
-  };
-  const handleClickDeletePaintTiming = (e) => {
-    dispatchToPuppeteerTestCase(deletePuppeteerTest(paintTiming.id));
+  // const handleFormSubmissionFields = (e, field) => {
+  //   dispatchToPuppeteerTestCase();
+  // };
+
+  const handleClickDeleteFormTesting = (e) => {
+    dispatchToPuppeteerTestCase(deletePuppeteerTest());
   };
 
   return (
-    <Draggable draggableId={paintTiming.id.toString()} index={index}>
+    <Draggable draggableId={formTesting.id.toString()} index={index}>
       {(provided) => (
         <div
           ref={provided.innerRef}
@@ -36,19 +33,13 @@ const PaintTiming = ({ paintTiming, index }) => {
             src={closeIcon}
             id={styles.close}
             alt='close'
-            onClick={handleClickDeletePaintTiming}
+            onClick={handleClickDeleteFormTesting}
           />
 
           <div id={styles.header}>
             <img src={dragIcon} alt='drag' />
-            <h3>Paint Timing</h3>
+            <h3>Form Submission</h3>
           </div>
-
-          <PuppeteerBrowserSetting
-            puppeteer={paintTiming}
-            updatePuppeteer={updatePaintTiming}
-            handleChangePuppeteerFields={handleChangePaintTimingFields}
-          />
 
           <div id={styles.groupFlexbox}>
             <label htmlFor='first-paint'>First Paint</label>
@@ -57,14 +48,14 @@ const PaintTiming = ({ paintTiming, index }) => {
                 type='text'
                 name='first-paint-it'
                 placeholder='should have its first paint in less than 100 ms'
-                onChange={(e) => handleChangePaintTimingFields(e, 'firstPaintIt')}
+                // onChange={(e) => handleChangePaintTimingFields(e, 'firstPaintIt')}
               />
               <div id={styles.time}>
                 <input
                   type='text'
                   name='first-paint-benchmark'
                   placeholder={100}
-                  onChange={(e) => handleChangePaintTimingFields(e, 'firstPaintTime')}
+                  // onChange={(e) => handleChangePaintTimingFields(e, 'firstPaintTime')}
                 />
               </div>
               <span id={styles.hastooltip} role='tooltip'>
@@ -82,14 +73,14 @@ const PaintTiming = ({ paintTiming, index }) => {
                 type='text'
                 name='first-contentful-paint-it'
                 placeholder='should have its first meaningful paint in less than 100 ms'
-                onChange={(e) => handleChangePaintTimingFields(e, 'FCPIt')}
+                // onChange={(e) => handleChangePaintTimingFields(e, 'FCPIt')}
               />
               <div id={styles.time}>
                 <input
                   type='text'
                   name='first-contentful-paint-benchmark'
                   placeholder={100}
-                  onChange={(e) => handleChangePaintTimingFields(e, 'FCPtTime')}
+                  // onChange={(e) => handleChangePaintTimingFields(e, 'FCPtTime')}
                 />
               </div>
               <span id={styles.hastooltip} role='tooltip'>
@@ -107,14 +98,14 @@ const PaintTiming = ({ paintTiming, index }) => {
                 type='text'
                 name='largest-contentful-paint-it'
                 placeholder='should have its largest contentful paint in less than 250 ms'
-                onChange={(e) => handleChangePaintTimingFields(e, 'LCPIt')}
+                // onChange={(e) => handleChangePaintTimingFields(e, 'LCPIt')}
               />
               <div id={styles.time}>
                 <input
                   type='text'
                   name='largest-contentful-paint-benchmark'
                   placeholder={250}
-                  onChange={(e) => handleChangePaintTimingFields(e, 'LCPTime')}
+                  // onChange={(e) => handleChangePaintTimingFields(e, 'LCPTime')}
                 />
               </div>
               <span id={styles.hastooltip} role='tooltip'>
@@ -131,4 +122,4 @@ const PaintTiming = ({ paintTiming, index }) => {
   );
 };
 
-export default PaintTiming;
+export default FormTesting;

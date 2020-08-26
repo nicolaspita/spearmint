@@ -7,7 +7,7 @@ export const puppeteerTestCaseState = {
   puppeteerStatements: [
     {
       id: 0,
-      type: 'paintTiming',
+      type: '',
       describe: '',
       url: '',
       browserOptions: [],
@@ -19,6 +19,7 @@ export const puppeteerTestCaseState = {
       LCPTime: null,
       hasBrowserOption: false,
       browserOptionId: 0,
+      inputFields: {},
     },
   ],
   statementId: 0,
@@ -47,6 +48,17 @@ const createBrowserOption = (browserOptionId: number) => ({
   optionValue: '',
 });
 
+const createPuppeteerFormTest = (statementId: number) => ({
+  id: statementId,
+  type: 'formTesting',
+  describe: '',
+  url: '',
+  browserOptions: [],
+  hasBrowserOption: false,
+  browserOptionId: 0,
+  formInput: {},
+});
+
 export const puppeteerTestCaseReducer = (
   state: PuppeteerTestCaseState,
   action: PuppeteerAction
@@ -64,9 +76,21 @@ export const puppeteerTestCaseReducer = (
 
     case 'ADD_PUPPETEER_PAINT_TIMING': {
       const newPuppeteerPaintTiming = createPuppeteerPaintTiming(state.statementId);
+      console.log('in reducers', state);
       return {
         ...state,
+        type: 'paintTiming',
         puppeteerStatements: [...puppeteerStatements, newPuppeteerPaintTiming],
+        statementId: state.statementId + 1,
+      };
+    }
+
+    case 'ADD_PUPPETEER_FORM_TESTING': {
+      const newPuppeteerFormTest = createPuppeteerFormTest(state.statementId);
+      console.log('in form reducer', state);
+      return {
+        ...state,
+        puppeteerStatements: [...puppeteerStatements, newPuppeteerFormTest],
         statementId: state.statementId + 1,
       };
     }
@@ -76,7 +100,7 @@ export const puppeteerTestCaseReducer = (
         puppeteerStatements: [
           {
             id: 0,
-            type: 'paintTiming',
+            type: '',
             describe: '',
             url: '',
             browserOptions: [],
@@ -88,6 +112,7 @@ export const puppeteerTestCaseReducer = (
             LCPTime: null,
             hasBrowserOption: false,
             browserOptionId: 0,
+            formInput: {},
           },
         ],
         statementId: 0,
