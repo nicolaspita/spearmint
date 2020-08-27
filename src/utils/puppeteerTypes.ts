@@ -40,7 +40,7 @@ export type PuppeteerAction =
         | 'TOGGLE_PUPPETEER'
         | 'CREATE_NEW_PUPPETEER_TEST'
         | 'ADD_PUPPETEER_PAINT_TIMING'
-        | 'ADD_PUPPETEER_FORM_TESTING'
+        | 'ADD_PUPPETEER_PAGE_TESTING'
         | 'ADD_HOOK_UPDATES'
         | 'ADD_HOOKRENDER'
         | 'CREATE_NEW_HOOKS_TEST'

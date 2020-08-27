@@ -11,7 +11,7 @@ import Modal from '../Modals/Modal';
 import {
   addPuppeteerPaintTiming,
   createNewPuppeteerTest,
-  addPuppeteerFormTesting,
+  addPuppeteerPageTesting,
 } from '../../context/actions/puppeteerTestCaseActions';
 import useGenerateTest from '../../context/useGenerateTest';
 import { PuppeteerTestCaseContext } from '../../context/reducers/puppeteerTestCaseReducer';
@@ -34,8 +34,8 @@ const PuppeteerTestMenu = () => {
     dispatchToPuppeteerTestCase(addPuppeteerPaintTiming());
   };
 
-  const handleAddPuppeteerFormTesting = () => {
-    dispatchToPuppeteerTestCase(addPuppeteerFormTesting());
+  const handleAddPuppeteerPageTesting = () => {
+    dispatchToPuppeteerTestCase(addPuppeteerPageTesting());
   };
 
   const openDocs = () => {
@@ -84,10 +84,10 @@ const PuppeteerTestMenu = () => {
           </button>
           <button
             type='button'
-            data-testid='puppeteerFormTestingButton'
-            onClick={handleAddPuppeteerFormTesting}
+            data-testid='puppeteerPageTestingButton'
+            onClick={handleAddPuppeteerPageTesting}
           >
-            Form Testing
+            Page Testing
           </button>
         </div>
       </div>

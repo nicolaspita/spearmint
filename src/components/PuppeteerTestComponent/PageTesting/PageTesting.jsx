@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { Draggable } from 'react-beautiful-dnd';
-import styles from './FormTesting.module.scss';
+import styles from './PageTesting.module.scss';
 import { deletePuppeteerTest } from '../../../context/actions/puppeteerTestCaseActions';
 import { PuppeteerTestCaseContext } from '../../../context/reducers/puppeteerTestCaseReducer';
 import ToolTip from '../../ToolTip/ToolTip';
@@ -38,26 +38,21 @@ const FormTesting = ({ formTesting, index }) => {
 
           <div id={styles.header}>
             <img src={dragIcon} alt='drag' />
-            <h3>Form Submission</h3>
+            <h3>Page Interaction</h3>
           </div>
 
           <div id={styles.groupFlexbox}>
-            <label htmlFor='first-paint'>First Paint</label>
+            <label htmlFor='first-paint'>Headless Mode</label>
             <div id={styles.inputFlexBox}>
-              <input
-                type='text'
-                name='first-paint-it'
-                placeholder='should have its first paint in less than 100 ms'
-                // onChange={(e) => handleChangePaintTimingFields(e, 'firstPaintIt')}
-              />
-              <div id={styles.time}>
-                <input
-                  type='text'
-                  name='first-paint-benchmark'
-                  placeholder={100}
-                  // onChange={(e) => handleChangePaintTimingFields(e, 'firstPaintTime')}
-                />
-              </div>
+              <span>
+                <input type='radio' />
+                Yes
+                <input type='radio' />
+                No
+                <label>Platform</label>
+                <input type='text' />
+              </span>
+              <div id={styles.time}></div>
               <span id={styles.hastooltip} role='tooltip'>
                 <img src={questionIcon} alt='help' />
                 <span id={styles.tooltip}>

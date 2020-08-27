@@ -48,7 +48,7 @@ const createBrowserOption = (browserOptionId: number) => ({
   optionValue: '',
 });
 
-const createPuppeteerFormTest = (statementId: number) => ({
+const createPuppeteerPageTest = (statementId: number) => ({
   id: statementId,
   type: 'formTesting',
   describe: '',
@@ -85,8 +85,8 @@ export const puppeteerTestCaseReducer = (
       };
     }
 
-    case 'ADD_PUPPETEER_FORM_TESTING': {
-      const newPuppeteerFormTest = createPuppeteerFormTest(state.statementId);
+    case 'ADD_PUPPETEER_PAGE_TESTING': {
+      const newPuppeteerFormTest = createPuppeteerPageTest(state.statementId);
       console.log('in form reducer', state);
       return {
         ...state,
