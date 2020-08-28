@@ -4,6 +4,7 @@ import styles from './PageTesting.module.scss';
 import { deletePuppeteerTest } from '../../../context/actions/puppeteerTestCaseActions';
 import { PuppeteerTestCaseContext } from '../../../context/reducers/puppeteerTestCaseReducer';
 import ToolTip from '../../ToolTip/ToolTip';
+import PageAction from './PageAction';
 
 const closeIcon = require('../../../assets/images/close.png');
 const dragIcon = require('../../../assets/images/drag-vertical.png');
@@ -42,14 +43,24 @@ const FormTesting = ({ formTesting, index }) => {
           </div>
 
           <div id={styles.groupFlexbox}>
-            <label htmlFor='first-paint'>Headless Mode</label>
             <div id={styles.inputFlexBox}>
+              <label htmlFor='first-paint'>Headless Mode</label>
+              <span id={styles.hastooltip} role='tooltip'>
+                <img src={questionIcon} alt='help' />
+                <span id={styles.tooltip}>
+                  <ToolTip toolTipType={'FPTarget'} />
+                </span>
+              </span>
               <span>
                 <input type='radio' />
-                Yes
+                <label htmlFor='headless-mode'>Yes</label>
                 <input type='radio' />
-                No
-                <label>Platform</label>
+                <label htmlFor='headless-mode'>No</label>
+              </span>
+            </div>
+            <div id={styles.inputFlexBox}>
+              <span>
+                <label>Device</label>
                 <input type='text' />
               </span>
               <div id={styles.time}></div>
@@ -62,55 +73,21 @@ const FormTesting = ({ formTesting, index }) => {
             </div>
           </div>
           <div id={styles.groupFlexbox}>
-            <label htmlFor='first-contentful-paint'>First Contentful Paint</label>
             <div id={styles.inputFlexBox}>
-              <input
-                type='text'
-                name='first-contentful-paint-it'
-                placeholder='should have its first meaningful paint in less than 100 ms'
-                // onChange={(e) => handleChangePaintTimingFields(e, 'FCPIt')}
-              />
-              <div id={styles.time}>
-                <input
-                  type='text'
-                  name='first-contentful-paint-benchmark'
-                  placeholder={100}
-                  // onChange={(e) => handleChangePaintTimingFields(e, 'FCPtTime')}
-                />
-              </div>
-              <span id={styles.hastooltip} role='tooltip'>
-                <img src={questionIcon} alt='help' />
-                <span id={styles.tooltip}>
-                  <ToolTip toolTipType={'FCPTarget'} />
-                </span>
+              <span>
+                <label>Test Description</label>
+                <input type='text' placeholder='test description'></input>
               </span>
             </div>
           </div>
+          {/* Divider to see space between divs with ease */}
           <div id={styles.groupFlexbox}>
-            <label htmlFor='largest-contentful-paint'>Largest Contentful Paint</label>
-            <div id={styles.inputFlexBox}>
-              <input
-                type='text'
-                name='largest-contentful-paint-it'
-                placeholder='should have its largest contentful paint in less than 250 ms'
-                // onChange={(e) => handleChangePaintTimingFields(e, 'LCPIt')}
-              />
-              <div id={styles.time}>
-                <input
-                  type='text'
-                  name='largest-contentful-paint-benchmark'
-                  placeholder={250}
-                  // onChange={(e) => handleChangePaintTimingFields(e, 'LCPTime')}
-                />
-              </div>
-              <span id={styles.hastooltip} role='tooltip'>
-                <img src={questionIcon} alt='help' />
-                <span id={styles.tooltip}>
-                  <ToolTip toolTipType={'LCPTarget'} />
-                </span>
-              </span>
-            </div>
+            <PageAction />
           </div>
+          <button>
+            <i className='fas fa-plus'></i>
+            Action
+          </button>
         </div>
       )}
     </Draggable>
