@@ -50,7 +50,7 @@ const createBrowserOption = (browserOptionId: number) => ({
 
 const createPuppeteerPageTest = (statementId: number) => ({
   id: statementId,
-  type: 'formTesting',
+  type: 'pageTesting',
   describe: '',
   url: '',
   browserOptions: [],
