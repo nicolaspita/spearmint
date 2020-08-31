@@ -28,6 +28,7 @@
     margin: 0;
     padding: 0;
   }
+  border: 1px solid black;
 }
 
 #groupFlexbox {
@@ -36,6 +37,7 @@
   margin-bottom: 15px;
   justify-content: space-between;
   width: 100%;
+  border: 1px solid black;
 }
 
 #menuFlexbox {
@@ -44,18 +46,21 @@
   margin-bottom: 15px;
   justify-content: space-around;
   width: 100%;
+  border: 1px solid black;
 }
 
 #specsFlexbox {
   display: flex;
   align-items: center;
   justify-content: space-evenly;
+  border: 1px solid black;
 }
 
 #devicesFlexbox {
   display: flex;
   align-items: center;
   justify-content: space-evenly;
+  border: 1px solid black;
 }
 
 #inputFlexBox {
@@ -68,6 +73,7 @@
     margin-left: 0.5rem;
     width: inherit;
   }
+  border: 1px solid black;
 }
 
 #time {

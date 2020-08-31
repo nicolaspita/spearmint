@@ -49,6 +49,7 @@ export type PuppeteerAction =
         | 'CLOSE_INFO_MODAL';
     }
   | { type: 'SET_DEVICE_NAME'; value: string }
+  | { type: 'SET_HEADLESS_MODE'; value: boolean }
   | { type: 'DELETE_PUPPETEER_TEST' | 'ADD_BROWSER_OPTIONS'; id: number }
   | { type: 'DELETE_BROWSER_OPTION'; id: number; optionId: number }
   | { type: 'UPDATE_PAINT_TIMING'; id: number; field: string; value: string }

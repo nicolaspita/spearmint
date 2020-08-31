@@ -5,14 +5,25 @@ import PageTesting from '../PuppeteerTestComponent/PageTesting/PageTesting';
 import ToolTip from '../ToolTip/ToolTip';
 import styles from '../PuppeteerTestComponent/PageTesting/PageTesting.module.scss';
 import { PuppeteerTestCaseContext } from '../../context/reducers/puppeteerTestCaseReducer';
+import { setDeviceName, setHeadlessMode } from '../../context/actions/puppeteerTestCaseActions';
 import { PuppeteerStatements } from '../../utils/puppeteerTypes';
 
 const questionIcon = require('../../assets/images/help-circle.png');
 
-const PuppeteerTestStatements = ({ statement, statementId, deviceName }) => {
+const PuppeteerTestStatements = ({ statement, statementId }) => {
   const [{ puppeteerStatements }, dispatchToPuppeteerTestCase] = useContext(
     PuppeteerTestCaseContext
   );
+
+  const handleDeviceSelect = (e) => {
+    const deviceName = e.target.value;
+    dispatchToPuppeteerTestCase(setDeviceName(deviceName));
+  };
+
+  const handleHeadlessMode = (e) => {
+    const headlessMode = e.target.value;
+    dispatchToPuppeteerTestCase(setHeadlessMode());
+  };
 
   // check out the puppeteerStatements and increment testCount accordingly
 
@@ -29,9 +40,9 @@ const PuppeteerTestStatements = ({ statement, statementId, deviceName }) => {
           </span>
           <span>
             <input type='radio' />
-            <label htmlFor='headless-mode'>Yes</label>
+            <label htmlFor='headless-mode-on'>On</label>
             <input type='radio' />
-            <label htmlFor='headless-mode'>No</label>
+            <label htmlFor='headless-mode-off'>Off</label>
           </span>
         </div>
         <span>
@@ -44,7 +55,7 @@ const PuppeteerTestStatements = ({ statement, statementId, deviceName }) => {
                 <ToolTip toolTipType={'FPTarget'} />
               </span>
             </span>
-            <select id='deviceName'>
+            <select id='deviceName' onChange={handleDeviceSelect}>
               <option value='' />
               <option value='iPhone 6'>iPhone 6</option>
               <option value='iPhone 6 Plus'>iPhone 6 Plus</option>

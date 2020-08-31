@@ -8,6 +8,7 @@ export const actionTypes = {
   ADD_PUPPETEER_PAINT_TIMING: 'ADD_PUPPETEER_PAINT_TIMING',
   ADD_PUPPETEER_PAGE_TESTING: 'ADD_PUPPETEER_PAGE_TESTING',
   SET_DEVICE_NAME: 'SET_DEVICE_NAME',
+  SET_HEADLESS_MODE: 'SET_HEADLESS_MODE',
   ADD_BROWSER_OPTIONS: 'ADD_BROWSER_OPTIONS',
   UPDATE_PAINT_TIMING: 'UPDATE_PAINT_TIMING',
   DELETE_BROWSER_OPTION: 'DELETE_BROWSER_OPTION',
@@ -38,8 +39,14 @@ export const addPuppeteerPageTesting = () => ({
   type: actionTypes.ADD_PUPPETEER_PAGE_TESTING,
 });
 
-export const setDeviceName = () => ({
+export const setDeviceName = (value: string) => ({
   type: actionTypes.SET_DEVICE_NAME,
+  value,
+});
+
+export const setHeadlessMode = (value: boolean) => ({
+  type: actionTypes.SET_HEADLESS_MODE,
+  value,
 });
 
 export const addBrowserOption = (id: number) => ({

@@ -10,6 +10,7 @@ export const puppeteerTestCaseState = {
       type: '',
       describe: '',
       deviceName: '',
+      headlessMode: false,
       url: '',
       browserOptions: [],
       firstPaintIt: '',
@@ -54,6 +55,7 @@ const createPuppeteerPageTest = (statementId: number) => ({
   type: 'pageTesting',
   describe: '',
   deviceName: '',
+  headlessMode: false,
   url: '',
   browserOptions: [],
   hasBrowserOption: false,
@@ -78,7 +80,6 @@ export const puppeteerTestCaseReducer = (
 
     case 'ADD_PUPPETEER_PAINT_TIMING': {
       const newPuppeteerPaintTiming = createPuppeteerPaintTiming(state.statementId);
-      console.log('in reducers', state);
       return {
         ...state,
         type: 'paintTiming',
@@ -97,10 +98,18 @@ export const puppeteerTestCaseReducer = (
     }
 
     case 'SET_DEVICE_NAME': {
-      const deviceName = action.value;
+      const device = action.value;
       return {
         ...state,
-        deviceName,
+        deviceName: device,
+      };
+    }
+
+    case 'SET_HEADLESS_MODE': {
+      const headlessMode = action.value;
+      return {
+        ...state,
+        headlessMode,
       };
     }
 
