@@ -6,8 +6,8 @@ export const actionTypes = {
   CREATE_NEW_PUPPETEER_TEST: 'CREATE_NEW_PUPPETEER_TEST',
   DELETE_PUPPETEER_TEST: 'DELETE_PUPPETEER_TEST',
   ADD_PUPPETEER_PAINT_TIMING: 'ADD_PUPPETEER_PAINT_TIMING',
-  // DELETE_PUPPETEER_PAINT_TIMING: 'DELETE_PUPPETEER_PAINT_TIMING',
   ADD_PUPPETEER_PAGE_TESTING: 'ADD_PUPPETEER_PAGE_TESTING',
+  SET_DEVICE_NAME: 'SET_DEVICE_NAME',
   ADD_BROWSER_OPTIONS: 'ADD_BROWSER_OPTIONS',
   UPDATE_PAINT_TIMING: 'UPDATE_PAINT_TIMING',
   DELETE_BROWSER_OPTION: 'DELETE_BROWSER_OPTION',
@@ -36,6 +36,10 @@ export const addPuppeteerPaintTiming = () => ({
 
 export const addPuppeteerPageTesting = () => ({
   type: actionTypes.ADD_PUPPETEER_PAGE_TESTING,
+});
+
+export const setDeviceName = () => ({
+  type: actionTypes.SET_DEVICE_NAME,
 });
 
 export const addBrowserOption = (id: number) => ({

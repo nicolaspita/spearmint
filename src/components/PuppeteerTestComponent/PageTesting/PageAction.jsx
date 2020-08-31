@@ -14,13 +14,11 @@ const PageAction = ({ statement }) => {
   return (
     <div id={styles.action}>
       <img src={closeIcon} id={styles.close} alt='close' />
-      <div id={styles.actionHeader}>
-        <h3>On Page Load</h3>
-      </div>
+      <div id={styles.actionHeader}></div>
       <div id={styles.queryFlexBox}>
         <div id={styles.querySelector}>
           <label htmlFor='queryVariant' className={styles.queryLabel}>
-            Query Selector
+            Element
           </label>
           <div id={styles.dropdownFlex}>
             <select id='queryVariant'>
@@ -38,7 +36,7 @@ const PageAction = ({ statement }) => {
                 {/* <ToolTip toolTipType={statement.queryVariant} /> */}
               </span>
             </span>
-            <select id='querySelector'>
+            {/* <select id='querySelector'>
               <option value='' />
               <option value='LabelText'>LabelText</option>
               <option value='PlaceholderText'>PlaceholderText</option>
@@ -47,9 +45,9 @@ const PageAction = ({ statement }) => {
               <option value='Title'>Title</option>
               <option value='DisplayValue'>DisplayValue</option>
               <option value='Role'>Role</option>
-              <option value='TestId'>TestId</option>
-              {/* TextMatch Precision & Normalization will be added */}
-            </select>
+              <option value='TestId'>TestId</option> */}
+            {/* TextMatch Precision & Normalization will be added */}
+            {/* </select> */}
             <select id='actionType'>
               <option value='' />
               <option value='Click'>Click</option>
@@ -66,7 +64,7 @@ const PageAction = ({ statement }) => {
         </div>
         <div id={styles.query}>
           <label htmlFor='queryValue' className={styles.queryLabel}>
-            Query
+            Input
           </label>
 
           <input type='text' id='queryValue' />

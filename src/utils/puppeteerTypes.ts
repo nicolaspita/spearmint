@@ -25,6 +25,7 @@ export interface PuppeteerStatements {
   hasBrowserOption: boolean;
   browserOptionId: number;
   [key: string]: any;
+  pageInput: Object;
 }
 
 export interface BrowserOptions {
@@ -47,6 +48,7 @@ export type PuppeteerAction =
         | 'OPEN_INFO_MODAL'
         | 'CLOSE_INFO_MODAL';
     }
+  | { type: 'SET_DEVICE_NAME'; value: string }
   | { type: 'DELETE_PUPPETEER_TEST' | 'ADD_BROWSER_OPTIONS'; id: number }
   | { type: 'DELETE_BROWSER_OPTION'; id: number; optionId: number }
   | { type: 'UPDATE_PAINT_TIMING'; id: number; field: string; value: string }

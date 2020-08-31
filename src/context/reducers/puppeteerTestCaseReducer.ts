@@ -9,6 +9,7 @@ export const puppeteerTestCaseState = {
       id: 0,
       type: '',
       describe: '',
+      deviceName: '',
       url: '',
       browserOptions: [],
       firstPaintIt: '',
@@ -19,7 +20,7 @@ export const puppeteerTestCaseState = {
       LCPTime: null,
       hasBrowserOption: false,
       browserOptionId: 0,
-      inputFields: {},
+      pageInput: {},
     },
   ],
   statementId: 0,
@@ -52,11 +53,12 @@ const createPuppeteerPageTest = (statementId: number) => ({
   id: statementId,
   type: 'pageTesting',
   describe: '',
+  deviceName: '',
   url: '',
   browserOptions: [],
   hasBrowserOption: false,
   browserOptionId: 0,
-  formInput: {},
+  pageInput: {},
 });
 
 export const puppeteerTestCaseReducer = (
@@ -86,12 +88,19 @@ export const puppeteerTestCaseReducer = (
     }
 
     case 'ADD_PUPPETEER_PAGE_TESTING': {
-      const newPuppeteerFormTest = createPuppeteerPageTest(state.statementId);
-      console.log('in form reducer', state);
+      const newPuppeteerPageTest = createPuppeteerPageTest(state.statementId);
       return {
         ...state,
-        puppeteerStatements: [...puppeteerStatements, newPuppeteerFormTest],
+        puppeteerStatements: [...puppeteerStatements, newPuppeteerPageTest],
         statementId: state.statementId + 1,
+      };
+    }
+
+    case 'SET_DEVICE_NAME': {
+      const deviceName = action.value;
+      return {
+        ...state,
+        deviceName,
       };
     }
 
@@ -102,6 +111,7 @@ export const puppeteerTestCaseReducer = (
             id: 0,
             type: '',
             describe: '',
+            deviceName: '',
             url: '',
             browserOptions: [],
             firstPaintIt: '',
@@ -112,7 +122,7 @@ export const puppeteerTestCaseReducer = (
             LCPTime: null,
             hasBrowserOption: false,
             browserOptionId: 0,
-            formInput: {},
+            pageInput: {},
           },
         ],
         statementId: 0,
@@ -196,7 +206,6 @@ export const puppeteerTestCaseReducer = (
         puppeteerStatements: [...action.draggableStatements],
       };
     case 'OPEN_INFO_MODAL':
-      console.log('reducer');
       return {
         ...state,
         modalOpen: true,

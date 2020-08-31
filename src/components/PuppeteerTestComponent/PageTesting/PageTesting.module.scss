@@ -10,6 +10,7 @@
 
 #close {
   float: right;
+  cursor: pointer;
 }
 
 #header {
@@ -33,20 +34,34 @@
   display: flex;
   align-items: center;
   margin-bottom: 15px;
-  justify-content: flex-start;
+  justify-content: space-between;
   width: 100%;
 }
 
-#devices {
-  input {
-    width: inherit;
-  }
+#menuFlexbox {
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+  justify-content: space-around;
+  width: 100%;
+}
+
+#specsFlexbox {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+#devicesFlexbox {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
 }
 
 #inputFlexBox {
   display: flex;
   align-items: center;
-  justify-content: flex-start;
+  justify-content: space-evenly;
   width: 100%;
   input {
     margin-right: 0.5rem;
@@ -63,7 +78,7 @@
 }
 
 #hastooltip {
-  // margin: 0.2rem;
+  margin: 0.2rem;
   @include hastooltip($tooltip-transition-in-duration: 0.3s);
 }
 

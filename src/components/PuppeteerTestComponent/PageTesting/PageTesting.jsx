@@ -28,23 +28,6 @@ const FormTesting = ({ pageTesting, index }) => {
         <img src={dragIcon} alt='drag' />
         <h3>Page Interaction</h3>
       </div>
-
-      <div id={styles.groupFlexbox}>
-        <div id={styles.inputFlexBox}>
-          <span>
-            <label>Test Description</label>
-            <span id={styles.hastooltip} role='tooltip'>
-              <img src={questionIcon} alt='help' />
-              <span id={styles.tooltip}>
-                <ToolTip toolTipType={'FPTarget'} />
-              </span>
-            </span>
-            <span>
-              <input type='text' placeholder='From data sent correctly' />
-            </span>
-          </span>
-        </div>
-      </div>
       {/* Divider to see space between divs with ease */}
       <div id={styles.groupFlexbox}>
         <PageAction />
