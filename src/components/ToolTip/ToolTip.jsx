@@ -41,8 +41,17 @@ const ToolTip = ({ toolTipType }) => {
       'The First Paint (FP) metric reports the time between navigation and when the browser renders the first pixels to the screen, rendering anything that is visually different from what was on the screen prior to navigation. Provide a target value in ms.',
     FCPTarget:
       "The First Contentful Paint (FCP) metric measures the time from when the page starts loading to when any part of the page's content is rendered on the screen. Provide a target value in ms.",
+    ActionType:
+      'The action type tells Puppeteer what action to execute on the page for the corresponding element.',
+    HeadlessMode:
+      'With Headless Mode off Puppeteer will open a new browser window allowing you to see the test being executed.',
+    Device:
+      'If you are running the test for a desktop application, leave this field blank. Otherwise, select the popular device you wish to test with.',
+    ElementName:
+      'Enter the name of the corresponding html element on which you want the action to be performed',
+    PageInput:
+      'Note: this field may be left blank and is only needed when the action being executed is type. In that case Puppeteer will type the input you enter into the Page Input field.',
   };
-
   return <span id={styles.tooltip}>{TOOLTIP_MAP[toolTipType]}</span>;
 };
 

@@ -99,7 +99,8 @@ const PuppeteerTestStatements = ({ statement, statementId }) => {
           case 'paintTiming':
             return <PaintTiming key={statementId} paintTiming={statement} index={i} />;
           case 'pageTesting':
-            return <PageTesting key={statementId} pageTesting={statement} index={i} />;
+            console.log(statement);
+            return <PageTesting key={statementId} statement={statement} index={i} />;
           default:
             return <></>;
         }

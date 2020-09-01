@@ -9,7 +9,7 @@ const closeIcon = require('../../../assets/images/close.png');
 const dragIcon = require('../../../assets/images/drag-vertical.png');
 const questionIcon = require('../../../assets/images/help-circle.png');
 
-const PageTesting = ({ pageTesting, index }) => {
+const PageTesting = ({ statement, pageTesting, index }) => {
   const [, dispatchToPuppeteerTestCase] = useContext(PuppeteerTestCaseContext);
 
   // const handleChangePageTestingFields = (e, field) => {
@@ -32,14 +32,14 @@ const PageTesting = ({ pageTesting, index }) => {
         <img src={dragIcon} alt='drag' />
         <h3>Page Interaction</h3>
       </div>
-      <div id={styles.description}>
-        <span>
+      <span>
+        <div id={styles.description}>
           <label htmlFor='test-type'>Test</label>
-          <input type='text' />
-        </span>
-      </div>
+          <input type='text' placeholder='Brief description of what you are testing' />
+        </div>
+      </span>
       <div>
-        <PageAction />
+        <PageAction statement={statement} />
       </div>
       <div id={styles.buttonContainer}>
         <button id={styles.actionButton}>

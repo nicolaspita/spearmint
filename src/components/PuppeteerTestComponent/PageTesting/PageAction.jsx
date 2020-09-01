@@ -20,7 +20,7 @@ const PageAction = ({ statement }) => {
             <span id={styles.hastooltip} role='tooltip'>
               <img src={questionIcon} alt='help' />
               <span id={styles.tooltip}>
-                {/* <ToolTip toolTipType={statement.querySelector} /> */}
+                <ToolTip toolTipType='elementName' />
               </span>
             </span>
             <input type='text' placeholder='e.g. username-input' />
@@ -32,43 +32,21 @@ const PageAction = ({ statement }) => {
             <span id={styles.hastooltip} role='tooltip'>
               <img src={questionIcon} alt='help' />
               <span id={styles.tooltip}>
-                {/* <ToolTip toolTipType={statement.querySelector} /> */}
+                <ToolTip toolTipType='pageInput' />
               </span>
             </span>
-            <input type='text' id='queryValue' placeholder='e.g. spearmint' />
+            <input type='text' id='queryValue' placeholder='e.g. username' />
           </label>
         </span>
       </div>
       <div id={styles.query}>
         <div id={styles.dropdownFlex}>
           <label htmlFor='queryVariant' className={styles.queryLabel}>
-            Query Variant
-            <span id={styles.hastooltip} role='tooltip'>
-              <img src={questionIcon} alt='help' />
-              <span id={styles.tooltip}>
-                {/* <ToolTip toolTipType={statement.querySelector} /> */}
-              </span>
-            </span>
-          </label>
-          <span>
-            <select id='querySelector'>
-              <option value='' />
-              <option value='LabelText'>LabelText</option>
-              <option value='PlaceholderText'>PlaceholderText</option>
-              <option value='Text'>Text</option>
-              <option value='AltText'>AltText</option>
-              <option value='Title'>Title</option>
-              <option value='DisplayValue'>DisplayValue</option>
-              <option value='Role'>Role</option>
-              <option value='TestId'>TestId</option>
-            </select>
-          </span>
-          <label htmlFor='queryVariant' className={styles.queryLabel}>
             Action Type
             <span id={styles.hastooltip} role='tooltip'>
               <img src={questionIcon} alt='help' />
               <span id={styles.tooltip}>
-                {/* <ToolTip toolTipType={statement.querySelector} /> */}
+                <ToolTip toolTipType='actionType' />
               </span>
             </span>
           </label>

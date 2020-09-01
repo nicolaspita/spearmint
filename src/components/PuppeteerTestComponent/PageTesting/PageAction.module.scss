@@ -3,7 +3,7 @@
 @import '../../../pages/LeftPanel/LeftPanel.module.scss';
 
 #action {
-  // @include box-styling;
+  @include box-styling;
   font-family: $raleway;
   letter-spacing: 0.5px;
 }
@@ -94,13 +94,14 @@
 #dropdownFlex {
   display: flex;
   align-items: center;
-  width: 111%;
+  margin: auto;
+  width: 100%;
 }
 
 #query {
   display: flex;
   align-items: center;
-  justify-content: flex-start;
+  justify-content: space-between;
   input {
     width: 100%;
   }
