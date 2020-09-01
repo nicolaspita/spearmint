@@ -4,24 +4,7 @@ import { PuppeteerTestCaseState, PuppeteerAction, Action } from '../../utils/pup
 export const PuppeteerTestCaseContext = createContext<any>(null);
 
 export const puppeteerTestCaseState = {
-  puppeteerStatements: [
-    {
-      id: 0,
-      type: '',
-      describe: '',
-      url: '',
-      browserOptions: [],
-      firstPaintIt: '',
-      firstPaintTime: null,
-      FCPIt: '',
-      FCPtTime: null,
-      LCPIt: '',
-      LCPTime: null,
-      hasBrowserOption: false,
-      browserOptionId: 0,
-      pageInput: [],
-    },
-  ],
+  puppeteerStatements: [],
   statementId: 0,
   deviceName: '',
   headlessMode: false,
@@ -50,21 +33,17 @@ const createBrowserOption = (browserOptionId: number) => ({
   optionValue: '',
 });
 
-const newAction: Action = {
-  id: 0,
+const createNewAction = (actionId: number) => ({
+  id: actionId,
   element: '',
   action: '',
   input: '',
-};
+});
 
-const createPuppeteerPageTest = (statementId: number) => ({
-  id: statementId,
+const createPuppeteerPageTest = (actionId: number) => ({
+  id: actionId,
   type: 'pageTesting',
-  describe: '',
-  url: '',
-  browserOptions: [],
-  hasBrowserOption: false,
-  browserOptionId: 0,
+  test: '',
   pageInput: [],
 });
 
@@ -73,6 +52,7 @@ export const puppeteerTestCaseReducer = (
   action: PuppeteerAction
 ) => {
   Object.freeze(state);
+  console.log(state, state.puppeteerStatements);
   let puppeteerStatements = [...state.puppeteerStatements];
 
   switch (action.type) {
@@ -85,6 +65,7 @@ export const puppeteerTestCaseReducer = (
 
     case 'ADD_PUPPETEER_PAINT_TIMING': {
       const newPuppeteerPaintTiming = createPuppeteerPaintTiming(state.statementId);
+      console.log(newPuppeteerPaintTiming);
       return {
         ...state,
         type: 'paintTiming',
@@ -95,6 +76,7 @@ export const puppeteerTestCaseReducer = (
 
     case 'ADD_PUPPETEER_PAGE_TESTING': {
       const newPuppeteerPageTest = createPuppeteerPageTest(state.statementId);
+      console.log(newPuppeteerPageTest);
       return {
         ...state,
         puppeteerStatements: [...puppeteerStatements, newPuppeteerPageTest],
@@ -111,46 +93,32 @@ export const puppeteerTestCaseReducer = (
     }
 
     case 'SET_HEADLESS_MODE': {
-      const headlessMode = action.value;
+      const headlessValue = action.value;
+      let headless;
+      if (headlessValue === 'On') headless = true;
+      else {
+        headless = false;
+      }
       return {
         ...state,
-        headlessMode,
+        headlessMode: headless,
       };
     }
 
     case 'ADD_ACTION': {
+      const actionToAdd = createNewAction(state.statementId);
       return {
         ...state,
-        // puppeteerStatements = puppeteerStatements.map((statement) => {
-        //   if (statement.id === action.id) {
-
-        //   }
-        // }) THIS NEEDS TO BE FINISHED
       };
     }
 
     case 'CREATE_NEW_PUPPETEER_TEST':
       return {
-        puppeteerStatements: [
-          {
-            id: 0,
-            type: '',
-            describe: '',
-            deviceName: '',
-            url: '',
-            browserOptions: [],
-            firstPaintIt: '',
-            firstPaintTime: null,
-            FCPIt: '',
-            FCPtTime: null,
-            LCPIt: '',
-            LCPTime: null,
-            hasBrowserOption: false,
-            browserOptionId: 0,
-            pageInput: [],
-          },
-        ],
+        puppeteerStatements: [],
         statementId: 0,
+        deviceName: '',
+        headlessMode: false,
+        modalOpen: false,
       };
 
     case 'DELETE_BROWSER_OPTION':

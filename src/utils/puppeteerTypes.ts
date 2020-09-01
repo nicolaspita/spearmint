@@ -56,7 +56,7 @@ export type PuppeteerAction =
         | 'CLOSE_INFO_MODAL';
     }
   | { type: 'SET_DEVICE_NAME'; value: string }
-  | { type: 'SET_HEADLESS_MODE'; value: boolean }
+  | { type: 'SET_HEADLESS_MODE'; value: string }
   | { type: 'ADD_ACTION'; value: Object }
   | { type: 'DELETE_PUPPETEER_TEST' | 'ADD_BROWSER_OPTIONS'; id: number }
   | { type: 'DELETE_BROWSER_OPTION'; id: number; optionId: number }

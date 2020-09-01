@@ -45,7 +45,7 @@ export const setDeviceName = (value: string) => ({
   value,
 });
 
-export const setHeadlessMode = (value: boolean) => ({
+export const setHeadlessMode = (value: string) => ({
   type: actionTypes.SET_HEADLESS_MODE,
   value,
 });

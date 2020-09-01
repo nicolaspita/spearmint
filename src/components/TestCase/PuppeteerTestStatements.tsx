@@ -10,7 +10,7 @@ import { PuppeteerStatements } from '../../utils/puppeteerTypes';
 
 const questionIcon = require('../../assets/images/help-circle.png');
 
-const PuppeteerTestStatements = ({ statement, statementId }) => {
+const PuppeteerTestStatements = () => {
   const [{ puppeteerStatements }, dispatchToPuppeteerTestCase] = useContext(
     PuppeteerTestCaseContext
   );
@@ -22,7 +22,7 @@ const PuppeteerTestStatements = ({ statement, statementId }) => {
 
   const handleHeadlessMode = (e) => {
     const headlessMode = e.target.value;
-    dispatchToPuppeteerTestCase(setHeadlessMode());
+    dispatchToPuppeteerTestCase(setHeadlessMode(headlessMode));
   };
 
   // check out the puppeteerStatements and increment testCount accordingly
@@ -39,10 +39,10 @@ const PuppeteerTestStatements = ({ statement, statementId }) => {
             </span>
           </label>
           <span>
-            <input type='radio' />
-            <label htmlFor='headless-mode-on'>On</label>
-            <input type='radio' />
-            <label htmlFor='headless-mode-off'>Off</label>
+            <input name='headless-radio' type='radio' onClick={handleHeadlessMode} value='On' />
+            <label htmlFor='headless-mode'>On</label>
+            <input name='headless-radio' type='radio' onClick={handleHeadlessMode} value='Off' />
+            <label htmlFor='headless-mode'>Off</label>
           </span>
         </div>
         <span>
@@ -97,10 +97,17 @@ const PuppeteerTestStatements = ({ statement, statementId }) => {
       {puppeteerStatements.map((statement: PuppeteerStatements, i: number) => {
         switch (statement.type) {
           case 'paintTiming':
-            return <PaintTiming key={statementId} paintTiming={statement} index={i} />;
+            return <PaintTiming key={statement.id} paintTiming={statement} index={i} />;
           case 'pageTesting':
             console.log(statement);
-            return <PageTesting key={statementId} statement={statement} index={i} />;
+            return (
+              <PageTesting
+                key={statement.id}
+                pageTesting={statement}
+                index={i}
+                dispatchToPuppeteerTestCase={dispatchToPupp}
+              />
+            );
           default:
             return <></>;
         }
