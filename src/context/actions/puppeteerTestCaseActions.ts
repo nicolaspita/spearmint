@@ -58,9 +58,10 @@ export const addAction = (index: number) => ({
   index,
 });
 
-export const deleteAction = (index: number) => ({
+export const deleteAction = (index: number, actionId: number) => ({
   type: actionTypes.DELETE_ACTION,
   index,
+  actionId,
 });
 
 export const addBrowserOption = (id: number) => ({

@@ -27,6 +27,8 @@ const createPuppeteerPaintTiming = (statementId: number) => ({
   LCPTime: null,
   hasBrowserOption: false,
   browserOptionId: 0,
+  deviceName: '',
+  headlessMode: true,
 });
 
 const createBrowserOption = (browserOptionId: number) => ({
@@ -52,6 +54,8 @@ const createPuppeteerPageTest = (statementId: number) => ({
   browserOptionId: 0,
   actions: [],
   actionId: 0,
+  deviceName: '',
+  headlessMode: true,
 });
 
 const createNewAction = (actionId: number) => ({
@@ -80,6 +84,8 @@ export const puppeteerTestCaseReducer = (
 
     case 'ADD_PUPPETEER_PAINT_TIMING': {
       const newPuppeteerPaintTiming = createPuppeteerPaintTiming(state.statementId);
+      newPuppeteerPaintTiming.deviceName = state.deviceName;
+      newPuppeteerPaintTiming.headlessMode = state.headlessMode;
       return {
         ...state,
         puppeteerStatements: [...puppeteerStatements, newPuppeteerPaintTiming],
@@ -106,6 +112,8 @@ export const puppeteerTestCaseReducer = (
             hasBrowserOption: false,
             browserOptionId: 0,
             actions: [],
+            deviceName: '',
+            headlessMode: true,
           },
         ],
         statementId: 0,
@@ -137,6 +145,8 @@ export const puppeteerTestCaseReducer = (
 
     case 'ADD_PUPPETEER_PAGE_TESTING': {
       const newPuppeteerPageTest = createPuppeteerPageTest(state.statementId);
+      newPuppeteerPageTest.deviceName = state.deviceName;
+      newPuppeteerPageTest.headlessMode = state.headlessMode;
       return {
         ...state,
         puppeteerStatements: [...puppeteerStatements, newPuppeteerPageTest],

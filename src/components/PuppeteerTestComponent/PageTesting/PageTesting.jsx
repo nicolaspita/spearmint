@@ -18,17 +18,14 @@ const PageTesting = ({ pageTesting, index }) => {
     dispatchToPuppeteerTestCase(deletePuppeteerTest(pageTesting.id));
   };
 
-  // need a function here to handle change to the test description
   const handleChangeTestDescription = (e, field) => {
     dispatchToPuppeteerTestCase(updateTestDescription(pageTesting.id, field, e.target.value));
   };
 
   const handleAddActionClick = () => {
     dispatchToPuppeteerTestCase(addAction(index));
-    // ANOTHER ISSUE HERE TO CLEAN UP
   };
 
-  console.log('in pageTesting', pageTesting);
   return (
     <div id={styles.modal}>
       <img src={closeIcon} id={styles.close} alt='close' onClick={handleClickDeleteFormTesting} />

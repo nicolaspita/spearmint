@@ -15,8 +15,6 @@ const PageAction = ({ pageAction, index, i }) => {
   };
 
   const handleDeleteAction = (id) => {
-    console.log(index);
-    console.log('i', i);
     dispatchToPuppeteerTestCase(deleteAction(index));
   };
 

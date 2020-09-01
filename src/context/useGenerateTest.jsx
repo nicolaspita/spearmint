@@ -333,20 +333,49 @@ function useGenerateTest(test, projectFilePath) {
           }`;
     };
 
-    /* formSubmit()
-      - utilizes page.tap/click/type to fill out a form within a webpage
-      - returns a promise containing the form data
+    const addPuppeteerPageTest = (statement) => {
+      testFileCode += `
 
-    */
+        const device = puppeteer.devices('${statement.deviceName}')
 
-    const addFormSubmission = () => {
-      testFileCode += 'yo yo yo yo ';
-      /* 
-      because the form will not always be a certain number of elements we have to make this modular
-      so give them an add field option within the modal
-      testFileCode +=
-        const {varName} = await page.$('[data-testid=${varName}]')
-      */
+        test('${statement.test}', async() => {
+          const browser = await puppeteer.launch({headless:${statement.headlessMode}})
+          const page = await browser.newPage();
+          
+          await page.goto('${statement.url}');
+      `;
+    };
+
+    const addPageActions = (statement) => {
+      if (statement.type === 'pageTesting') {
+        if (statement.actions.length) {
+          statement.actions.forEach((action) => {
+            console.log('in generate test file', action);
+            testFileCode += `
+              const ${action.input} = await page.$('[data-testid="${action.element}"]')
+              `;
+          });
+          statement.actions.forEach((action) => {
+            if (action.action === 'tap') {
+              testFileCode += `
+                await ${action.input}.tap();
+              `;
+            }
+            if (action.action === 'click') {
+              testFileCode += `
+                await ${action.input}.click();
+              `;
+            } else {
+              testFileCode += `
+                await page.type('[data-testid="${action.element}"]', user.${action.input});
+            `;
+            }
+          });
+        }
+      }
+      testFileCode += `
+        browser.close()
+      `;
     };
 
     const addPuppeteerImportStatements = () => {
@@ -354,13 +383,10 @@ function useGenerateTest(test, projectFilePath) {
         switch (statement.type) {
           case 'paintTiming':
             testFileCode = `import puppeteer from 'puppeteer';\n`;
-            // addPuppeteerBaseTestCode();
             addLCPfunction();
             return;
-          case 'formSubmission':
+          case 'pageTesting':
             testFileCode = `import puppeteer from 'puppeteer';\n`;
-            addPuppeteerBaseTestCode();
-            addFormSubmission();
           default:
             return statement;
         }
@@ -373,7 +399,9 @@ function useGenerateTest(test, projectFilePath) {
         switch (statement.type) {
           case 'paintTiming':
             return addPuppeteerPaintTiming(statement);
-          case 'formSubmission':
+          case 'pageTesting':
+            addPuppeteerPageTest(statement);
+            addPageActions(statement);
             return;
           default:
             return statement;
@@ -673,10 +701,10 @@ function useGenerateTest(test, projectFilePath) {
       testFileCode += '\n';
     };
 
-    // Puppeteer Base Test Code
+    // Puppeteer Page Test Code
     const addPuppeteerBaseTestCode = (statement) => {
       const browserOptions = {};
-
+      console.log(statement);
       testFileCode += `
         test('${statement.describe}'), () => {
           beforeAll( async () => {
@@ -710,7 +738,7 @@ function useGenerateTest(test, projectFilePath) {
       }
 
       testFileCode += `
-          test('${statement.describe}', () => {
+          describe('${statement.describe}', () => {
             let paints, lcp;
             beforeAll( async () => {
               const app = '${statement.url}';
