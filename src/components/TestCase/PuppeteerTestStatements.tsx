@@ -31,13 +31,13 @@ const PuppeteerTestStatements = ({ statement, statementId }) => {
     <>
       <div id={styles.menuFlexbox}>
         <div id={styles.specsFlexbox}>
-          <label htmlFor='headless-mode'>Headless Mode</label>
-          <span id={styles.hastooltip} role='tooltip'>
-            <img src={questionIcon} alt='help' />
-            <span id={styles.tooltip}>
-              <ToolTip toolTipType={'FPTarget'} />
+          <label htmlFor='headless-mode'>
+            Headless Mode
+            <span id={styles.hastooltip} role='tooltip'>
+              <img src={questionIcon} alt='help' />
+              <span id={styles.tooltip}>{/* <ToolTip toolTipType={'FPTarget'} /> */}</span>
             </span>
-          </span>
+          </label>
           <span>
             <input type='radio' />
             <label htmlFor='headless-mode-on'>On</label>
@@ -47,14 +47,16 @@ const PuppeteerTestStatements = ({ statement, statementId }) => {
         </div>
         <span>
           <div id={styles.devicesFlexbox}>
-            <label htmlFor='deviceName'>Device</label>
-            <span id={styles.hastooltip} role='tooltip'>
-              <img src={questionIcon} alt='help' />
-              <span id={styles.tooltip}>
-                {/* Change tooltip type to a blurb about devices */}
-                <ToolTip toolTipType={'FPTarget'} />
+            <label htmlFor='deviceName'>
+              Device
+              <span id={styles.hastooltip} role='tooltip'>
+                <img src={questionIcon} alt='help' />
+                <span id={styles.tooltip}>
+                  {/* Change tooltip type to a blurb about devices */}
+                  {/* <ToolTip toolTipType={'FPTarget'} /> */}
+                </span>
               </span>
-            </span>
+            </label>
             <select id='deviceName' onChange={handleDeviceSelect}>
               <option value='' />
               <option value='iPhone 6'>iPhone 6</option>
@@ -78,7 +80,7 @@ const PuppeteerTestStatements = ({ statement, statementId }) => {
           </div>
         </span>
       </div>
-      <div id={styles.inputFlexBox}>
+      {/* <div id={styles.inputFlexBox}>
         <span>
           <label>Test Description</label>
           <span id={styles.hastooltip} role='tooltip'>
@@ -91,7 +93,7 @@ const PuppeteerTestStatements = ({ statement, statementId }) => {
             <input type='text' placeholder='From data sent correctly' />
           </span>
         </span>
-      </div>
+      </div> */}
       {puppeteerStatements.map((statement: PuppeteerStatements, i: number) => {
         switch (statement.type) {
           case 'paintTiming':

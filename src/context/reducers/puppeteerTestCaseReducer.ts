@@ -1,5 +1,5 @@
 import { createContext } from 'react';
-import { PuppeteerTestCaseState, PuppeteerAction } from '../../utils/puppeteerTypes';
+import { PuppeteerTestCaseState, PuppeteerAction, Action } from '../../utils/puppeteerTypes';
 //import { actionTypes } from '../actions/puppeteerTestCaseActions';
 export const PuppeteerTestCaseContext = createContext<any>(null);
 
@@ -9,8 +9,6 @@ export const puppeteerTestCaseState = {
       id: 0,
       type: '',
       describe: '',
-      deviceName: '',
-      headlessMode: false,
       url: '',
       browserOptions: [],
       firstPaintIt: '',
@@ -21,10 +19,12 @@ export const puppeteerTestCaseState = {
       LCPTime: null,
       hasBrowserOption: false,
       browserOptionId: 0,
-      pageInput: {},
+      pageInput: [],
     },
   ],
   statementId: 0,
+  deviceName: '',
+  headlessMode: false,
   modalOpen: false,
 };
 
@@ -50,17 +50,22 @@ const createBrowserOption = (browserOptionId: number) => ({
   optionValue: '',
 });
 
+const newAction: Action = {
+  id: 0,
+  element: '',
+  action: '',
+  input: '',
+};
+
 const createPuppeteerPageTest = (statementId: number) => ({
   id: statementId,
   type: 'pageTesting',
   describe: '',
-  deviceName: '',
-  headlessMode: false,
   url: '',
   browserOptions: [],
   hasBrowserOption: false,
   browserOptionId: 0,
-  pageInput: {},
+  pageInput: [],
 });
 
 export const puppeteerTestCaseReducer = (
@@ -113,6 +118,17 @@ export const puppeteerTestCaseReducer = (
       };
     }
 
+    case 'ADD_ACTION': {
+      return {
+        ...state,
+        // puppeteerStatements = puppeteerStatements.map((statement) => {
+        //   if (statement.id === action.id) {
+
+        //   }
+        // }) THIS NEEDS TO BE FINISHED
+      };
+    }
+
     case 'CREATE_NEW_PUPPETEER_TEST':
       return {
         puppeteerStatements: [
@@ -131,7 +147,7 @@ export const puppeteerTestCaseReducer = (
             LCPTime: null,
             hasBrowserOption: false,
             browserOptionId: 0,
-            pageInput: {},
+            pageInput: [],
           },
         ],
         statementId: 0,

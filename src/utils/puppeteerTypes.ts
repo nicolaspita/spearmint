@@ -35,6 +35,13 @@ export interface BrowserOptions {
   [key: string]: any;
 }
 
+export interface Action {
+  id: number;
+  element: any;
+  action: string;
+  input: string;
+}
+
 export type PuppeteerAction =
   | {
       type:
@@ -50,6 +57,7 @@ export type PuppeteerAction =
     }
   | { type: 'SET_DEVICE_NAME'; value: string }
   | { type: 'SET_HEADLESS_MODE'; value: boolean }
+  | { type: 'ADD_ACTION'; value: Object }
   | { type: 'DELETE_PUPPETEER_TEST' | 'ADD_BROWSER_OPTIONS'; id: number }
   | { type: 'DELETE_BROWSER_OPTION'; id: number; optionId: number }
   | { type: 'UPDATE_PAINT_TIMING'; id: number; field: string; value: string }

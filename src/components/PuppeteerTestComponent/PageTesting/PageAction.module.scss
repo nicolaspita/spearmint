@@ -3,7 +3,7 @@
 @import '../../../pages/LeftPanel/LeftPanel.module.scss';
 
 #action {
-  @include box-styling;
+  // @include box-styling;
   font-family: $raleway;
   letter-spacing: 0.5px;
 }
@@ -13,22 +13,22 @@
   cursor: pointer;
 }
 
-#actionHeader {
-  @include box-header-alignment;
-  justify-content: flex-start;
-  display: flex;
-  align-items: center;
-  img {
-    width: 20px;
-    height: 20px;
-    margin: 0;
-    padding: 0;
-  }
-  h3 {
-    margin: 0;
-    padding: 0;
-  }
-}
+// #actionHeader {
+//   // @include box-header-alignment;
+//   justify-content: center;
+//   display: flex;
+//   align-items: center;
+//   img {
+//     width: 20px;
+//     height: 20px;
+//     margin: 0;
+//     padding: 0;
+//   }
+//   h3 {
+//     margin: 0;
+//     padding: 0;
+//   }
+// }
 
 .queryLabel {
   font-weight: bolder;
@@ -39,6 +39,7 @@
 #queryFlexBox {
   display: flex;
   align-items: center;
+  justify-content: space-between;
   width: 100%;
 }
 
@@ -97,8 +98,22 @@
 }
 
 #query {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
   input {
     width: 100%;
+  }
+  select {
+    font-family: $raleway;
+    width: 100%;
+    height: 25px;
+    margin: 0 3px 0 0;
+    background-color: white;
+    border: 1px solid $light-gray;
+    font-size: 12px;
+    letter-spacing: 0.5px;
+    color: $dark-gray;
   }
 }
 

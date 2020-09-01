@@ -9,6 +9,7 @@ export const actionTypes = {
   ADD_PUPPETEER_PAGE_TESTING: 'ADD_PUPPETEER_PAGE_TESTING',
   SET_DEVICE_NAME: 'SET_DEVICE_NAME',
   SET_HEADLESS_MODE: 'SET_HEADLESS_MODE',
+  ADD_ACTION: 'ADD_ACTION',
   ADD_BROWSER_OPTIONS: 'ADD_BROWSER_OPTIONS',
   UPDATE_PAINT_TIMING: 'UPDATE_PAINT_TIMING',
   DELETE_BROWSER_OPTION: 'DELETE_BROWSER_OPTION',
@@ -48,6 +49,14 @@ export const setHeadlessMode = (value: boolean) => ({
   type: actionTypes.SET_HEADLESS_MODE,
   value,
 });
+
+export const addAction = (index: number) => ({
+  type: actionTypes.ADD_ACTION,
+  index,
+});
+
+// add logic to handle updating Action
+// export const updateAction = ()
 
 export const addBrowserOption = (id: number) => ({
   type: actionTypes.ADD_BROWSER_OPTIONS,

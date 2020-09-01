@@ -12,31 +12,46 @@ const PageAction = ({ statement }) => {
   //
 
   return (
-    <div id={styles.action}>
-      <img src={closeIcon} id={styles.close} alt='close' />
-      <div id={styles.actionHeader}></div>
-      <div id={styles.queryFlexBox}>
-        <div id={styles.querySelector}>
+    <div id={styles.actionHeader}>
+      <div id={styles.query}>
+        <span>
           <label htmlFor='queryVariant' className={styles.queryLabel}>
-            Element
-          </label>
-          <div id={styles.dropdownFlex}>
-            <select id='queryVariant'>
-              <option value='' />
-              <option value='getBy'>getBy</option>
-              <option value='getAllBy'>getAllBy</option>
-              <option value='queryBy'>queryBy</option>
-              <option value='queryAllBy'>queryAllBy</option>
-              <option value='findBy'>findBy</option>
-              <option value='findAllBy'>findAllBy</option>
-            </select>
+            Element Name
             <span id={styles.hastooltip} role='tooltip'>
               <img src={questionIcon} alt='help' />
               <span id={styles.tooltip}>
-                {/* <ToolTip toolTipType={statement.queryVariant} /> */}
+                {/* <ToolTip toolTipType={statement.querySelector} /> */}
               </span>
             </span>
-            {/* <select id='querySelector'>
+            <input type='text' placeholder='e.g. username-input' />
+          </label>
+        </span>
+        <span>
+          <label htmlFor='queryValue' className={styles.queryLabel}>
+            Page Input
+            <span id={styles.hastooltip} role='tooltip'>
+              <img src={questionIcon} alt='help' />
+              <span id={styles.tooltip}>
+                {/* <ToolTip toolTipType={statement.querySelector} /> */}
+              </span>
+            </span>
+            <input type='text' id='queryValue' placeholder='e.g. spearmint' />
+          </label>
+        </span>
+      </div>
+      <div id={styles.query}>
+        <div id={styles.dropdownFlex}>
+          <label htmlFor='queryVariant' className={styles.queryLabel}>
+            Query Variant
+            <span id={styles.hastooltip} role='tooltip'>
+              <img src={questionIcon} alt='help' />
+              <span id={styles.tooltip}>
+                {/* <ToolTip toolTipType={statement.querySelector} /> */}
+              </span>
+            </span>
+          </label>
+          <span>
+            <select id='querySelector'>
               <option value='' />
               <option value='LabelText'>LabelText</option>
               <option value='PlaceholderText'>PlaceholderText</option>
@@ -45,30 +60,28 @@ const PageAction = ({ statement }) => {
               <option value='Title'>Title</option>
               <option value='DisplayValue'>DisplayValue</option>
               <option value='Role'>Role</option>
-              <option value='TestId'>TestId</option> */}
-            {/* TextMatch Precision & Normalization will be added */}
-            {/* </select> */}
-            <select id='actionType'>
-              <option value='' />
-              <option value='Click'>Click</option>
-              <option value='Tap'>Tap</option>
-              <option value='Type'>Type</option>
+              <option value='TestId'>TestId</option>
             </select>
+          </span>
+          <label htmlFor='queryVariant' className={styles.queryLabel}>
+            Action Type
             <span id={styles.hastooltip} role='tooltip'>
               <img src={questionIcon} alt='help' />
               <span id={styles.tooltip}>
                 {/* <ToolTip toolTipType={statement.querySelector} /> */}
               </span>
             </span>
-          </div>
-        </div>
-        <div id={styles.query}>
-          <label htmlFor='queryValue' className={styles.queryLabel}>
-            Input
           </label>
-
-          <input type='text' id='queryValue' />
+          <span>
+            <select id='actionType'>
+              <option value='' />
+              <option value='Click'>Click</option>
+              <option value='Tap'>Tap</option>
+              <option value='Type'>Type</option>
+            </select>
+          </span>
         </div>
+        <img src={closeIcon} id={styles.close} alt='close' />
       </div>
     </div>
   );
