@@ -10,8 +10,8 @@ const closeIcon = require('../../../assets/images/close.png');
 const PageAction = ({ pageAction }) => {
   const [, dispatchToPuppeteerTestCase] = useContext(PuppeteerTestCaseContext);
 
-  const handleChangePageTestFields = (e, field) => {
-    dispatchToPuppeteerTestCase(updatePageTest(field, e.target.value));
+  const handleChangePageTestFields = (e, id, field) => {
+    dispatchToPuppeteerTestCase(updatePageTest(field, pageAction.id, e.target.value));
   };
 
   return (

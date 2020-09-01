@@ -20,6 +20,7 @@ const PageTesting = ({ pageTesting, index }) => {
     index += 1;
   };
 
+  console.log('in pageTesting', pageTesting);
   return (
     <div id={styles.modal}>
       <img src={closeIcon} id={styles.close} alt='close' onClick={handleClickDeleteFormTesting} />
@@ -34,9 +35,13 @@ const PageTesting = ({ pageTesting, index }) => {
           <input type='text' placeholder='Brief description of what you are testing' />
         </div>
       </span>
-      <div>
-        <PageAction pageAction={pageTesting} />
-      </div>
+      {pageTesting.actions.map((action, i) => {
+        return (
+          <div>
+            <PageAction pageTesting={pageTesting} index={index} id={i} />
+          </div>
+        );
+      })}
       <div id={styles.buttonContainer}>
         <button id={styles.actionButton} onClick={handleAddActionClick}>
           <i className='fas fa-plus'></i>

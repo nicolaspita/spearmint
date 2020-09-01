@@ -1,7 +1,6 @@
 import React, { useContext, useState } from 'react';
 import PaintTiming from '../PuppeteerTestComponent/PaintTiming/PaintTiming';
 import PageTesting from '../PuppeteerTestComponent/PageTesting/PageTesting';
-// import DeviceAutoComplete from '../PuppeteerTestComponent/PageTesting/DeviceAutoComplete'; finish if time
 import ToolTip from '../ToolTip/ToolTip';
 import styles from '../PuppeteerTestComponent/PageTesting/PageTesting.module.scss';
 import { PuppeteerTestCaseContext } from '../../context/reducers/puppeteerTestCaseReducer';
@@ -77,14 +76,6 @@ const PuppeteerTestStatements = () => {
               <option value='Galaxy S5'>Galaxy S5</option>
               <option value='Galaxy Note 3'>Galaxy Note 3</option>
             </select>
-            {/* <DeviceAutoComplete
-              statement={statement}
-              statementId={statementId}
-              deviceName={deviceName}
-              dispatchToPuppeteerTestCase={dispatchToPuppeteerTestCase}
-              id={styles.autoComplete}
-            /> */}
-            {/* Going to need a tooltip here as well */}
           </div>
         </span>
       </div>
