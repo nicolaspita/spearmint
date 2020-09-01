@@ -35,7 +35,9 @@ const PuppeteerTestStatements = () => {
             Headless Mode
             <span id={styles.hastooltip} role='tooltip'>
               <img src={questionIcon} alt='help' />
-              <span id={styles.tooltip}>{/* <ToolTip toolTipType={'FPTarget'} /> */}</span>
+              <span id={styles.tooltip}>
+                <ToolTip toolTipType={'HeadlessMode'} />
+              </span>
             </span>
           </label>
           <span>
@@ -52,8 +54,7 @@ const PuppeteerTestStatements = () => {
               <span id={styles.hastooltip} role='tooltip'>
                 <img src={questionIcon} alt='help' />
                 <span id={styles.tooltip}>
-                  {/* Change tooltip type to a blurb about devices */}
-                  {/* <ToolTip toolTipType={'FPTarget'} /> */}
+                  <ToolTip toolTipType={'Device'} />
                 </span>
               </span>
             </label>
@@ -65,9 +66,16 @@ const PuppeteerTestStatements = () => {
               <option value='iPhone 7 Plus'>iPhone 7 Plus</option>
               <option value='iPhone 8'>iPhone 8</option>
               <option value='iPhone 8 Plus'>iPhone 8 Plus</option>
-              <option value='iPhone X'>iPhone 6</option>
+              <option value='iPhone X'>iPhone X/XS</option>
               <option value='iPhone SE'>iPhone SE</option>
               <option value='iPhone XR'>iPhone XR</option>
+              <option value='iPad'>iPad</option>
+              <option value='iPad Pro'>iPad Pro</option>
+              <option value='Pixel 2'>Pixel 2</option>
+              <option value='Pixel 2 XL'>Pixel 2 XL</option>
+              <option value='Galaxy S III'>Galaxy S III</option>
+              <option value='Galaxy S5'>Galaxy S5</option>
+              <option value='Galaxy Note 3'>Galaxy Note 3</option>
             </select>
             {/* <DeviceAutoComplete
               statement={statement}
@@ -80,32 +88,18 @@ const PuppeteerTestStatements = () => {
           </div>
         </span>
       </div>
-      {/* <div id={styles.inputFlexBox}>
-        <span>
-          <label>Test Description</label>
-          <span id={styles.hastooltip} role='tooltip'>
-            <img src={questionIcon} alt='help' />
-            <span id={styles.tooltip}>
-              <ToolTip toolTipType={'FPTarget'} />
-            </span>
-          </span>
-          <span>
-            <input type='text' placeholder='From data sent correctly' />
-          </span>
-        </span>
-      </div> */}
       {puppeteerStatements.map((statement: PuppeteerStatements, i: number) => {
         switch (statement.type) {
           case 'paintTiming':
             return <PaintTiming key={statement.id} paintTiming={statement} index={i} />;
           case 'pageTesting':
-            console.log(statement);
+            console.log(i);
             return (
               <PageTesting
                 key={statement.id}
                 pageTesting={statement}
                 index={i}
-                dispatchToPuppeteerTestCase={dispatchToPupp}
+                dispatchToPuppeteerTestCase={dispatchToPuppeteerTestCase}
               />
             );
           default:

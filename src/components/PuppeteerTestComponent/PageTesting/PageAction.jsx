@@ -1,15 +1,18 @@
 import React, { useContext } from 'react';
-import AutoComplete from '../../AutoComplete/AutoComplete';
-import AutoCompleteMockData from '../../AutoComplete/AutoCompleteMockData';
-import styles from './PageAction.module.scss';
-import ToolTip from '../../ToolTip/ToolTip';
+import { updatePageTest } from '../../../context/actions/puppeteerTestCaseActions';
 import { PuppeteerTestCaseContext } from '../../../context/reducers/puppeteerTestCaseReducer';
+import ToolTip from '../../ToolTip/ToolTip';
+import styles from './PageAction.module.scss';
 
 const questionIcon = require('../../../assets/images/help-circle.png');
 const closeIcon = require('../../../assets/images/close.png');
 
-const PageAction = ({ statement }) => {
-  //
+const PageAction = ({ pageAction }) => {
+  const [, dispatchToPuppeteerTestCase] = useContext(PuppeteerTestCaseContext);
+
+  const handleChangePageTestFields = (e, field) => {
+    dispatchToPuppeteerTestCase(updatePageTest(field, e.target.value));
+  };
 
   return (
     <div id={styles.actionHeader}>
@@ -20,10 +23,14 @@ const PageAction = ({ statement }) => {
             <span id={styles.hastooltip} role='tooltip'>
               <img src={questionIcon} alt='help' />
               <span id={styles.tooltip}>
-                <ToolTip toolTipType='elementName' />
+                <ToolTip toolTipType={'ElementName'} />
               </span>
             </span>
-            <input type='text' placeholder='e.g. username-input' />
+            <input
+              type='text'
+              placeholder='e.g. username-input'
+              onChange={(e) => handleChangePageTestFields(e, 'element')}
+            />
           </label>
         </span>
         <span>
@@ -32,10 +39,15 @@ const PageAction = ({ statement }) => {
             <span id={styles.hastooltip} role='tooltip'>
               <img src={questionIcon} alt='help' />
               <span id={styles.tooltip}>
-                <ToolTip toolTipType='pageInput' />
+                <ToolTip toolTipType={'PageInput'} />
               </span>
             </span>
-            <input type='text' id='queryValue' placeholder='e.g. username' />
+            <input
+              type='text'
+              id='queryValue'
+              placeholder='e.g. username'
+              onChange={(e) => handleChangePageTestFields(e, 'input')}
+            />
           </label>
         </span>
       </div>
@@ -46,12 +58,12 @@ const PageAction = ({ statement }) => {
             <span id={styles.hastooltip} role='tooltip'>
               <img src={questionIcon} alt='help' />
               <span id={styles.tooltip}>
-                <ToolTip toolTipType='actionType' />
+                <ToolTip toolTipType={'ActionType'} />
               </span>
             </span>
           </label>
           <span>
-            <select id='actionType'>
+            <select id='actionType' onChange={(e) => handleChangePageTestFields(e, 'action')}>
               <option value='' />
               <option value='Click'>Click</option>
               <option value='Tap'>Tap</option>
@@ -59,6 +71,7 @@ const PageAction = ({ statement }) => {
             </select>
           </span>
         </div>
+        {/* ADD FUNCTIONALITY TO CLOSE HERE */}
         <img src={closeIcon} id={styles.close} alt='close' />
       </div>
     </div>

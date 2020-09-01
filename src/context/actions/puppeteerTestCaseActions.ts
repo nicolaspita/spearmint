@@ -12,6 +12,7 @@ export const actionTypes = {
   ADD_ACTION: 'ADD_ACTION',
   ADD_BROWSER_OPTIONS: 'ADD_BROWSER_OPTIONS',
   UPDATE_PAINT_TIMING: 'UPDATE_PAINT_TIMING',
+  UPDATE_PAGE_TEST: 'UPDATE_PAGE_TEST',
   DELETE_BROWSER_OPTION: 'DELETE_BROWSER_OPTION',
   UPDATE_BROWSER_OPTION: 'UPDATE_BROWSER_OPTION',
   UPDATE_STATEMENTS_ORDER: 'UPDATE_STATEMENTS_ORDER',
@@ -71,6 +72,13 @@ export const deleteBrowserOption = (id: number, optionId: number) => ({
 
 export const updatePaintTiming = (id: number, field: string, value: string) => ({
   type: actionTypes.UPDATE_PAINT_TIMING,
+  id,
+  field,
+  value,
+});
+
+export const updatePageTest = (id: number, field: string, value: string) => ({
+  type: actionTypes.UPDATE_PAGE_TEST,
   id,
   field,
   value,

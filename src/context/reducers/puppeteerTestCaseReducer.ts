@@ -1,5 +1,6 @@
 import { createContext } from 'react';
 import { PuppeteerTestCaseState, PuppeteerAction, Action } from '../../utils/puppeteerTypes';
+import { create } from 'react-test-renderer';
 //import { actionTypes } from '../actions/puppeteerTestCaseActions';
 export const PuppeteerTestCaseContext = createContext<any>(null);
 
@@ -7,12 +8,12 @@ export const puppeteerTestCaseState = {
   puppeteerStatements: [],
   statementId: 0,
   deviceName: '',
-  headlessMode: false,
+  headlessMode: true,
   modalOpen: false,
 };
 
-const createPuppeteerPaintTiming = (statementId: number) => ({
-  id: statementId,
+const createPuppeteerPaintTiming = (index: number) => ({
+  id: index,
   type: 'paintTiming',
   describe: '',
   url: '',
@@ -40,11 +41,11 @@ const createNewAction = (actionId: number) => ({
   input: '',
 });
 
-const createPuppeteerPageTest = (actionId: number) => ({
-  id: actionId,
+const createPuppeteerPageTest = (index: number) => ({
+  id: index,
   type: 'pageTesting',
   test: '',
-  pageInput: [],
+  actions: [],
 });
 
 export const puppeteerTestCaseReducer = (
@@ -52,7 +53,6 @@ export const puppeteerTestCaseReducer = (
   action: PuppeteerAction
 ) => {
   Object.freeze(state);
-  console.log(state, state.puppeteerStatements);
   let puppeteerStatements = [...state.puppeteerStatements];
 
   switch (action.type) {
@@ -65,24 +65,21 @@ export const puppeteerTestCaseReducer = (
 
     case 'ADD_PUPPETEER_PAINT_TIMING': {
       const newPuppeteerPaintTiming = createPuppeteerPaintTiming(state.statementId);
-      console.log(newPuppeteerPaintTiming);
       return {
         ...state,
-        type: 'paintTiming',
         puppeteerStatements: [...puppeteerStatements, newPuppeteerPaintTiming],
         statementId: state.statementId + 1,
       };
     }
 
-    case 'ADD_PUPPETEER_PAGE_TESTING': {
-      const newPuppeteerPageTest = createPuppeteerPageTest(state.statementId);
-      console.log(newPuppeteerPageTest);
+    case 'CREATE_NEW_PUPPETEER_TEST':
       return {
-        ...state,
-        puppeteerStatements: [...puppeteerStatements, newPuppeteerPageTest],
-        statementId: state.statementId + 1,
+        puppeteerStatements: [],
+        statementId: 0,
+        deviceName: '',
+        headlessMode: true,
+        modalOpen: false,
       };
-    }
 
     case 'SET_DEVICE_NAME': {
       const device = action.value;
@@ -105,21 +102,36 @@ export const puppeteerTestCaseReducer = (
       };
     }
 
-    case 'ADD_ACTION': {
-      const actionToAdd = createNewAction(state.statementId);
+    case 'ADD_PUPPETEER_PAGE_TESTING': {
+      const newPuppeteerPageTest = createPuppeteerPageTest(state.statementId);
       return {
         ...state,
+        puppeteerStatements: [...puppeteerStatements, newPuppeteerPageTest],
+        statementId: state.statementId + 1,
       };
     }
 
-    case 'CREATE_NEW_PUPPETEER_TEST':
+    case 'ADD_ACTION': {
+      const createdAction = createNewAction(action.index);
       return {
-        puppeteerStatements: [],
-        statementId: 0,
-        deviceName: '',
-        headlessMode: false,
-        modalOpen: false,
+        ...state,
+        puppeteerStatements: puppeteerStatements[action.index].push(createdAction),
       };
+    }
+
+    case 'UPDATE_PAGE_TEST': {
+      puppeteerStatements = puppeteerStatements.map((statement) => {
+        if (statement.id === action.id) {
+          // this needs more logic to find the appropriate action, then replace the field
+          statement[action.field] = action.value;
+        }
+        return statement;
+      });
+      return {
+        ...state,
+        puppeteerStatements,
+      };
+    }
 
     case 'DELETE_BROWSER_OPTION':
       puppeteerStatements = puppeteerStatements.map((statement) => {

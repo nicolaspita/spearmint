@@ -1,28 +1,24 @@
 import React, { useContext } from 'react';
 import styles from './PageTesting.module.scss';
-import { deletePuppeteerTest } from '../../../context/actions/puppeteerTestCaseActions';
+import { deletePuppeteerTest, addAction } from '../../../context/actions/puppeteerTestCaseActions';
 import { PuppeteerTestCaseContext } from '../../../context/reducers/puppeteerTestCaseReducer';
-import ToolTip from '../../ToolTip/ToolTip';
 import PageAction from './PageAction';
 
 const closeIcon = require('../../../assets/images/close.png');
 const dragIcon = require('../../../assets/images/drag-vertical.png');
-const questionIcon = require('../../../assets/images/help-circle.png');
 
-const PageTesting = ({ statement, pageTesting, index }) => {
+const PageTesting = ({ pageTesting, index }) => {
   const [, dispatchToPuppeteerTestCase] = useContext(PuppeteerTestCaseContext);
-
-  // const handleChangePageTestingFields = (e, field) => {
-  //   dispatchToPuppeteerTestCase();
-  // };
 
   const handleClickDeleteFormTesting = (e) => {
     dispatchToPuppeteerTestCase(deletePuppeteerTest(pageTesting.id));
   };
 
-  // const addActionClick = (e) => {
-  //   dispatchToPuppeteerTestCase(addAction());
-  // };
+  const handleAddActionClick = () => {
+    dispatchToPuppeteerTestCase(addAction(index));
+    // ANOTHER ISSUE HERE TO CLEAN UP
+    index += 1;
+  };
 
   return (
     <div id={styles.modal}>
@@ -39,10 +35,10 @@ const PageTesting = ({ statement, pageTesting, index }) => {
         </div>
       </span>
       <div>
-        <PageAction statement={statement} />
+        <PageAction pageAction={pageTesting} />
       </div>
       <div id={styles.buttonContainer}>
-        <button id={styles.actionButton}>
+        <button id={styles.actionButton} onClick={handleAddActionClick}>
           <i className='fas fa-plus'></i>
           Action
         </button>
