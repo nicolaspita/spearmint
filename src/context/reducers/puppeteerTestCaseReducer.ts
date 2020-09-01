@@ -6,19 +6,18 @@ export const PuppeteerTestCaseContext = createContext<any>(null);
 
 export const puppeteerTestCaseState = {
   puppeteerStatements: [],
-  paintTiming: [],
-  pageTesting: [],
   statementId: 0,
   deviceName: '',
   headlessMode: true,
   modalOpen: false,
 };
 
-const createPuppeteerPaintTiming = (index: number) => ({
-  id: index,
+const createPuppeteerPaintTiming = (statementId: number) => ({
+  id: statementId,
   type: 'paintTiming',
   url: '',
   describe: '',
+  test: '',
   browserOptions: [],
   firstPaintIt: '',
   firstPaintTime: null,
@@ -36,26 +35,39 @@ const createBrowserOption = (browserOptionId: number) => ({
   optionValue: '',
 });
 
+const createPuppeteerPageTest = (statementId: number) => ({
+  id: statementId,
+  type: 'pageTesting',
+  url: '',
+  describe: '',
+  test: '',
+  browserOptions: [],
+  firstPaintIt: '',
+  firstPaintTime: null,
+  FCPIt: '',
+  FCPtTime: null,
+  LCPIt: '',
+  LCPTime: null,
+  hasBrowserOption: false,
+  browserOptionId: 0,
+  actions: [],
+  actionId: 0,
+});
+
 const createNewAction = (actionId: number) => ({
-  id: actionId,
+  id: 0,
   element: '',
   action: '',
   input: '',
 });
-
-const createPuppeteerPageTest = (index: number) => ({
-  id: index,
-  type: 'pageTesting',
-  test: '',
-  actions: [],
-});
-
 export const puppeteerTestCaseReducer = (
   state: PuppeteerTestCaseState,
   action: PuppeteerAction
 ) => {
   Object.freeze(state);
   let puppeteerStatements = [...state.puppeteerStatements];
+  console.log('in reducer', state);
+  console.log('in reducer puppStatements', puppeteerStatements);
 
   switch (action.type) {
     case 'DELETE_PUPPETEER_TEST':
@@ -68,19 +80,34 @@ export const puppeteerTestCaseReducer = (
 
     case 'ADD_PUPPETEER_PAINT_TIMING': {
       const newPuppeteerPaintTiming = createPuppeteerPaintTiming(state.statementId);
-      puppeteerStatements = puppeteerStatements.push(newPuppeteerPaintTiming);
       return {
         ...state,
-        puppeteerStatements,
+        puppeteerStatements: [...puppeteerStatements, newPuppeteerPaintTiming],
         statementId: state.statementId + 1,
       };
     }
 
     case 'CREATE_NEW_PUPPETEER_TEST':
       return {
-        puppeteerStatements: [],
-        paintTiming: [],
-        pageTesting: [],
+        puppeteerStatements: [
+          {
+            id: 0,
+            type: '',
+            describe: '',
+            test: '',
+            url: '',
+            browserOptions: [],
+            firstPaintIt: '',
+            firstPaintTime: null,
+            FCPIt: '',
+            FCPtTime: null,
+            LCPIt: '',
+            LCPTime: null,
+            hasBrowserOption: false,
+            browserOptionId: 0,
+            actions: [],
+          },
+        ],
         statementId: 0,
         deviceName: '',
         headlessMode: true,
@@ -118,24 +145,50 @@ export const puppeteerTestCaseReducer = (
     }
 
     case 'ADD_ACTION': {
-      // puppeteerStatements = puppeteerStatements.map(())
-      console.log(puppeteerStatements);
-      const createdAction = createNewAction(action);
-      console.log(action.index);
-      // look for puppeteerstatements
-      // look for pageTesting & index
-      // push new action into action
+      const newAction = createNewAction(action.index);
+      puppeteerStatements = puppeteerStatements.map((statement) => {
+        if (statement.id === action.index) {
+          newAction.id = statement.actionId;
+          statement.actions.push(newAction);
+          statement.actionId += 1;
+        }
+        return statement;
+      });
       return {
         ...state,
-        // puppeteerStatements: puppeteerStatements[action.index].push(createdAction),
+        puppeteerStatements,
+      };
+    }
+
+    case 'DELETE_ACTION': {
+      puppeteerStatements = puppeteerStatements.map((statement) => {
+        // if (statement.id === action.index) {
+
+        // }
+        return statement;
+      });
+      return {
+        ...state,
       };
     }
 
     case 'UPDATE_PAGE_TEST': {
       puppeteerStatements = puppeteerStatements.map((statement) => {
-        console.log(statement);
         if (statement.id === action.id) {
           // this needs more logic to find the appropriate action, then replace the field
+          statement[action.field] = action.value;
+        }
+        return statement;
+      });
+      return {
+        ...state,
+        puppeteerStatements,
+      };
+    }
+
+    case 'UPDATE_TEST_DESCRIPTION': {
+      puppeteerStatements = puppeteerStatements.map((statement) => {
+        if (statement.id === action.id) {
           statement[action.field] = action.value;
         }
         return statement;

@@ -61,7 +61,9 @@ export type PuppeteerAction =
   | { type: 'SET_DEVICE_NAME'; value: string }
   | { type: 'SET_HEADLESS_MODE'; value: string }
   | { type: 'ADD_ACTION'; index: number }
+  | { type: 'DELETE_ACTION'; index: number }
   | { type: 'UPDATE_PAGE_TEST'; id: number; field: string; value: string }
+  | { type: 'UPDATE_TEST_DESCRIPTION'; id: number; field: string; value: string }
   | { type: 'DELETE_PUPPETEER_TEST' | 'ADD_BROWSER_OPTIONS'; id: number }
   | { type: 'DELETE_BROWSER_OPTION'; id: number; optionId: number }
   | { type: 'UPDATE_PAINT_TIMING'; id: number; field: string; value: string }

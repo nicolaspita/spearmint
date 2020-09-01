@@ -1,6 +1,10 @@
 import React, { useContext } from 'react';
 import styles from './PageTesting.module.scss';
-import { deletePuppeteerTest, addAction } from '../../../context/actions/puppeteerTestCaseActions';
+import {
+  updateTestDescription,
+  deletePuppeteerTest,
+  addAction,
+} from '../../../context/actions/puppeteerTestCaseActions';
 import { PuppeteerTestCaseContext } from '../../../context/reducers/puppeteerTestCaseReducer';
 import PageAction from './PageAction';
 
@@ -14,10 +18,14 @@ const PageTesting = ({ pageTesting, index }) => {
     dispatchToPuppeteerTestCase(deletePuppeteerTest(pageTesting.id));
   };
 
+  // need a function here to handle change to the test description
+  const handleChangeTestDescription = (e, field) => {
+    dispatchToPuppeteerTestCase(updateTestDescription(pageTesting.id, field, e.target.value));
+  };
+
   const handleAddActionClick = () => {
     dispatchToPuppeteerTestCase(addAction(index));
     // ANOTHER ISSUE HERE TO CLEAN UP
-    index += 1;
   };
 
   console.log('in pageTesting', pageTesting);
@@ -32,13 +40,17 @@ const PageTesting = ({ pageTesting, index }) => {
       <span>
         <div id={styles.description}>
           <label htmlFor='test-type'>Test</label>
-          <input type='text' placeholder='Brief description of what you are testing' />
+          <input
+            type='text'
+            placeholder='Brief description of what you are testing'
+            onChange={(e) => handleChangeTestDescription(e, 'test')}
+          />
         </div>
       </span>
       {pageTesting.actions.map((action, i) => {
         return (
           <div>
-            <PageAction pageTesting={pageTesting} index={index} id={i} />
+            <PageAction pageAction={pageTesting} index={index} id={i} />
           </div>
         );
       })}

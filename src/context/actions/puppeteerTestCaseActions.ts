@@ -10,8 +10,10 @@ export const actionTypes = {
   SET_DEVICE_NAME: 'SET_DEVICE_NAME',
   SET_HEADLESS_MODE: 'SET_HEADLESS_MODE',
   ADD_ACTION: 'ADD_ACTION',
+  DELETE_ACTION: 'DELETE_ACTION',
   ADD_BROWSER_OPTIONS: 'ADD_BROWSER_OPTIONS',
   UPDATE_PAINT_TIMING: 'UPDATE_PAINT_TIMING',
+  UPDATE_TEST_DESCRIPTION: 'UPDATE_TEST_DESCRIPTION',
   UPDATE_PAGE_TEST: 'UPDATE_PAGE_TEST',
   DELETE_BROWSER_OPTION: 'DELETE_BROWSER_OPTION',
   UPDATE_BROWSER_OPTION: 'UPDATE_BROWSER_OPTION',
@@ -56,8 +58,10 @@ export const addAction = (index: number) => ({
   index,
 });
 
-// add logic to handle updating Action
-// export const updateAction = ()
+export const deleteAction = (index: number) => ({
+  type: actionTypes.DELETE_ACTION,
+  index,
+});
 
 export const addBrowserOption = (id: number) => ({
   type: actionTypes.ADD_BROWSER_OPTIONS,
@@ -79,6 +83,13 @@ export const updatePaintTiming = (id: number, field: string, value: string) => (
 
 export const updatePageTest = (id: number, field: string, value: string) => ({
   type: actionTypes.UPDATE_PAGE_TEST,
+  id,
+  field,
+  value,
+});
+
+export const updateTestDescription = (id: number, field: string, value: string) => ({
+  type: actionTypes.UPDATE_TEST_DESCRIPTION,
   id,
   field,
   value,

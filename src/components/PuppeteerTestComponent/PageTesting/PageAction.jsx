@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { updatePageTest } from '../../../context/actions/puppeteerTestCaseActions';
+import { updatePageTest, deleteAction } from '../../../context/actions/puppeteerTestCaseActions';
 import { PuppeteerTestCaseContext } from '../../../context/reducers/puppeteerTestCaseReducer';
 import ToolTip from '../../ToolTip/ToolTip';
 import styles from './PageAction.module.scss';
@@ -7,11 +7,17 @@ import styles from './PageAction.module.scss';
 const questionIcon = require('../../../assets/images/help-circle.png');
 const closeIcon = require('../../../assets/images/close.png');
 
-const PageAction = ({ pageAction }) => {
+const PageAction = ({ pageAction, index, i }) => {
   const [, dispatchToPuppeteerTestCase] = useContext(PuppeteerTestCaseContext);
 
   const handleChangePageTestFields = (e, id, field) => {
     dispatchToPuppeteerTestCase(updatePageTest(field, pageAction.id, e.target.value));
+  };
+
+  const handleDeleteAction = (id) => {
+    console.log(index);
+    console.log('i', i);
+    dispatchToPuppeteerTestCase(deleteAction(index));
   };
 
   return (
@@ -71,8 +77,7 @@ const PageAction = ({ pageAction }) => {
             </select>
           </span>
         </div>
-        {/* ADD FUNCTIONALITY TO CLOSE HERE */}
-        <img src={closeIcon} id={styles.close} alt='close' />
+        <img src={closeIcon} id={styles.close} alt='close' onClick={handleDeleteAction} />
       </div>
     </div>
   );

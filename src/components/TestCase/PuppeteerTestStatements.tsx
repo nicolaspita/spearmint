@@ -2,7 +2,7 @@ import React, { useContext, useState } from 'react';
 import PaintTiming from '../PuppeteerTestComponent/PaintTiming/PaintTiming';
 import PageTesting from '../PuppeteerTestComponent/PageTesting/PageTesting';
 import ToolTip from '../ToolTip/ToolTip';
-import styles from '../PuppeteerTestComponent/PageTesting/PageTesting.module.scss';
+import styles from './../../components/PuppeteerTestComponent/PageTesting/PageTesting.module.scss';
 import { PuppeteerTestCaseContext } from '../../context/reducers/puppeteerTestCaseReducer';
 import { setDeviceName, setHeadlessMode } from '../../context/actions/puppeteerTestCaseActions';
 import { PuppeteerStatements } from '../../utils/puppeteerTypes';
@@ -24,10 +24,8 @@ const PuppeteerTestStatements = () => {
     dispatchToPuppeteerTestCase(setHeadlessMode(headlessMode));
   };
 
-  // check out the puppeteerStatements and increment testCount accordingly
-
   return (
-    <>
+    <div>
       <div id={styles.menuFlexbox}>
         <div id={styles.specsFlexbox}>
           <label htmlFor='headless-mode'>
@@ -84,7 +82,6 @@ const PuppeteerTestStatements = () => {
           case 'paintTiming':
             return <PaintTiming key={statement.id} paintTiming={statement} index={i} />;
           case 'pageTesting':
-            console.log(i);
             return (
               <PageTesting
                 key={statement.id}
@@ -97,7 +94,7 @@ const PuppeteerTestStatements = () => {
             return <></>;
         }
       })}
-    </>
+    </div>
   );
 };
 
