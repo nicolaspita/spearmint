@@ -1,7 +1,6 @@
 import { createContext } from 'react';
 import { PuppeteerTestCaseState, PuppeteerAction, Action } from '../../utils/puppeteerTypes';
 import { create } from 'react-test-renderer';
-//import { actionTypes } from '../actions/puppeteerTestCaseActions';
 export const PuppeteerTestCaseContext = createContext<any>(null);
 
 export const puppeteerTestCaseState = {
@@ -59,7 +58,7 @@ const createPuppeteerPageTest = (statementId: number) => ({
 });
 
 const createNewAction = (actionId: number) => ({
-  id: 0,
+  id: actionId,
   element: '',
   action: '',
   input: '',
@@ -70,16 +69,19 @@ export const puppeteerTestCaseReducer = (
 ) => {
   Object.freeze(state);
   let puppeteerStatements = [...state.puppeteerStatements];
-  console.log('in reducer', state);
-  console.log('in reducer puppStatements', puppeteerStatements);
 
   switch (action.type) {
     case 'DELETE_PUPPETEER_TEST':
-      // look for type of statement
-      puppeteerStatements = puppeteerStatements.filter((statement) => statement.id !== action.id);
+      const newStatements = puppeteerStatements;
+      const removeId = action.id;
+      newStatements.splice(action.id, 1);
+      newStatements.forEach((statement) => {
+        if (statement.id > removeId) statement.id -= 1;
+      });
       return {
         ...state,
-        puppeteerStatements,
+        puppeteerStatements: newStatements,
+        statementId: state.statementId - 1,
       };
 
     case 'ADD_PUPPETEER_PAINT_TIMING': {
@@ -155,6 +157,7 @@ export const puppeteerTestCaseReducer = (
     }
 
     case 'ADD_ACTION': {
+      // need to get a action id assigned to each action that can be recognized easily
       const newAction = createNewAction(action.index);
       puppeteerStatements = puppeteerStatements.map((statement) => {
         if (statement.id === action.index) {
@@ -184,11 +187,9 @@ export const puppeteerTestCaseReducer = (
 
     case 'UPDATE_PAGE_TEST': {
       puppeteerStatements = puppeteerStatements.map((statement) => {
-        console.log(action);
         if (statement.id === action.id) {
           // this needs more logic to find the appropriate action, then replace the field
-          console.log(action);
-          statement[action.field] = action.value;
+          statement.actions[action.field] = action.value;
         }
         return statement;
       });

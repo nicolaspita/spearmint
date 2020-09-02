@@ -349,7 +349,6 @@ function useGenerateTest(test, projectFilePath) {
       if (statement.type === 'pageTesting') {
         if (statement.actions.length) {
           statement.actions.forEach((action) => {
-            console.log('in generate test file', action);
             testFileCode += `
               const ${action.input} = await page.$('[data-testid="${action.element}"]')
               `;
