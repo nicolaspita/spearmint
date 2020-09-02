@@ -372,7 +372,7 @@ function useGenerateTest(test, projectFilePath) {
         }
       }
       testFileCode += `
-        browser.close()
+        await browser.close()
       `;
     };
 

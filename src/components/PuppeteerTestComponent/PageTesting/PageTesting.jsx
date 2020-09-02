@@ -14,7 +14,7 @@ const dragIcon = require('../../../assets/images/drag-vertical.png');
 const PageTesting = ({ pageTesting, index }) => {
   const [, dispatchToPuppeteerTestCase] = useContext(PuppeteerTestCaseContext);
 
-  const handleClickDeleteFormTesting = (e) => {
+  const handleClickDeletePageTest = (e) => {
     dispatchToPuppeteerTestCase(deletePuppeteerTest(pageTesting.id));
   };
 
@@ -28,7 +28,7 @@ const PageTesting = ({ pageTesting, index }) => {
 
   return (
     <div id={styles.modal}>
-      <img src={closeIcon} id={styles.close} alt='close' onClick={handleClickDeleteFormTesting} />
+      <img src={closeIcon} id={styles.close} alt='close' onClick={handleClickDeletePageTest} />
 
       <div id={styles.header}>
         <img src={dragIcon} alt='drag' />
@@ -47,7 +47,7 @@ const PageTesting = ({ pageTesting, index }) => {
       {pageTesting.actions.map((action, i) => {
         return (
           <div>
-            <PageAction pageAction={pageTesting} index={index} id={i} />
+            <PageAction pageAction={pageTesting} index={index} id={index.id} key={index.id} />
           </div>
         );
       })}

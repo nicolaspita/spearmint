@@ -7,8 +7,10 @@ import styles from './PageAction.module.scss';
 const questionIcon = require('../../../assets/images/help-circle.png');
 const closeIcon = require('../../../assets/images/close.png');
 
-const PageAction = ({ pageAction, index, i }) => {
+const PageAction = ({ pageAction, index, key }) => {
   const [, dispatchToPuppeteerTestCase] = useContext(PuppeteerTestCaseContext);
+
+  console.log('in pageAction index', index);
 
   const handleChangePageTestFields = (e, id, field) => {
     dispatchToPuppeteerTestCase(updatePageTest(field, pageAction.id, e.target.value));

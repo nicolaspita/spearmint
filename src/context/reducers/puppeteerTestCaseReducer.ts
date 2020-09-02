@@ -174,10 +174,10 @@ export const puppeteerTestCaseReducer = (
     }
 
     case 'DELETE_ACTION': {
+      console.log('delete action', action);
       puppeteerStatements = puppeteerStatements.map((statement) => {
-        // if (statement.id === action.index) {
-
-        // }
+        if (statement.id === action.index) {
+        }
         return statement;
       });
       return {
