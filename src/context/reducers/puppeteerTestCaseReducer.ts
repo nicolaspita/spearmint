@@ -184,8 +184,10 @@ export const puppeteerTestCaseReducer = (
 
     case 'UPDATE_PAGE_TEST': {
       puppeteerStatements = puppeteerStatements.map((statement) => {
+        console.log(action);
         if (statement.id === action.id) {
           // this needs more logic to find the appropriate action, then replace the field
+          console.log(action);
           statement[action.field] = action.value;
         }
         return statement;

@@ -335,7 +335,6 @@ function useGenerateTest(test, projectFilePath) {
 
     const addPuppeteerPageTest = (statement) => {
       testFileCode += `
-
         const device = puppeteer.devices('${statement.deviceName}')
 
         test('${statement.test}', async() => {
@@ -701,26 +700,6 @@ function useGenerateTest(test, projectFilePath) {
       testFileCode += '\n';
     };
 
-    // Puppeteer Page Test Code
-    const addPuppeteerBaseTestCode = (statement) => {
-      const browserOptions = {};
-      console.log(statement);
-      testFileCode += `
-        test('${statement.describe}'), () => {
-          beforeAll( async () => {
-            const browser = await puppeteer.launch(
-              ${
-                statement.browserOptions.length
-                  ? JSON.stringify(browserOptions).replace(/"([^"]+)":/g, '$1:')
-                  : '{}'
-              }
-            );
-            const page = await browser.newPage();
-            await page.goto('${statement.url}');
-          })
-        }
-      `;
-    };
     // Puppeteer Form Jest Test Code
     const addPuppeteerPaintTiming = (statement) => {
       const browserOptions = {};
