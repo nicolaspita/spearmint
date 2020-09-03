@@ -1,11 +1,11 @@
 import { createContext } from 'react';
-import { PuppeteerTestCaseState, PuppeteerAction, Action } from '../../utils/puppeteerTypes';
-import { create } from 'react-test-renderer';
+import { PuppeteerTestCaseState, PuppeteerAction } from '../../utils/puppeteerTypes';
+
 export const PuppeteerTestCaseContext = createContext<any>(null);
 
 export const puppeteerTestCaseState = {
   puppeteerStatements: [],
-  statementId: 0,
+  statementId: 1,
   deviceName: '',
   headlessMode: true,
   modalOpen: false,
@@ -72,15 +72,13 @@ export const puppeteerTestCaseReducer = (
 
   switch (action.type) {
     case 'DELETE_PUPPETEER_TEST':
-      const newStatements = puppeteerStatements;
-      const removeId = action.id;
-      newStatements.splice(action.id, 1);
-      newStatements.forEach((statement) => {
-        if (statement.id > removeId) statement.id -= 1;
+      puppeteerStatements.splice(action.id, 1);
+      puppeteerStatements.forEach((statement) => {
+        if (statement.id > action.id) statement.id -= 1;
       });
       return {
         ...state,
-        puppeteerStatements: newStatements,
+        puppeteerStatements,
         statementId: state.statementId - 1,
       };
 
@@ -118,7 +116,7 @@ export const puppeteerTestCaseReducer = (
             headlessMode: true,
           },
         ],
-        statementId: 0,
+        statementId: 1,
         deviceName: '',
         headlessMode: true,
         modalOpen: false,
