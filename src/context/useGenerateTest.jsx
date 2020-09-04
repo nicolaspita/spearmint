@@ -311,9 +311,9 @@ function useGenerateTest(test, projectFilePath) {
         - setting observer() method to observe the LCP performance entries
      */
 
-    const addLCPfunction = () => {
+    const addLCPfunction = (statement) => {
       testFileCode += `      
-          function getLargestContentfulPaint() {
+          const calcLCP = () => {
             window.largestContentfulPaint = 0;
         
             const observer = new PerformanceObserver((list) => {
@@ -330,7 +330,32 @@ function useGenerateTest(test, projectFilePath) {
                   observer.disconnect();
               }
             });
-          }`;
+          }
+          
+          const getLCP = async () => {
+            const browser = await puppeteer.launch({});
+            try {
+              const page = await browser.newPage();
+              const client = await page.target().createDCPsession();
+
+              await page.evaluateOnNewDocument(calcLCP);
+              await page.goto('${statement.url}', { waitUntil: 'load', timeout: 60000 });
+
+              const lcp = await page.evaluate(() => {
+                return window.largestContentfulPaint;
+              });
+
+              return lcp;
+              await browser.close();
+            } catch (err) {
+              console.log(error);
+              browser.close();
+            }
+          }
+          
+          const LCP = getLCP('${statement.url}')
+          
+          `;
     };
 
     const addPuppeteerImportStatements = () => {
@@ -338,7 +363,7 @@ function useGenerateTest(test, projectFilePath) {
         switch (statement.type) {
           case 'paintTiming':
             testFileCode = `const puppeteer = require('puppeteer');\n`;
-            // addLCPfunction();
+            // addLCPfunction(statement);
             return;
           default:
             return statement;
