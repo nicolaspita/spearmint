@@ -1,5 +1,3 @@
-
-
 const remote = window.require('electron').remote;
 const fs = remote.require('fs');
 const path = remote.require('path');
@@ -339,8 +337,8 @@ function useGenerateTest(test, projectFilePath) {
       puppeteerTestCase.puppeteerStatements.forEach((statement) => {
         switch (statement.type) {
           case 'paintTiming':
-            testFileCode = `import puppeteer from 'puppeteer';\n`;
-            addLCPfunction();
+            testFileCode = `const puppeteer = require('puppeteer');\n`;
+            // addLCPfunction();
             return;
           default:
             return statement;
@@ -751,39 +749,51 @@ function useGenerateTest(test, projectFilePath) {
 
       testFileCode += `
           describe('${statement.describe}', () => {
-            let paints, lcp;
+            let firstPaint, firstContentfulPaint;
+            const paints = [];
             beforeAll( async () => {
-              let app = '${statement.url}';
-              let browser = await puppeteer.launch(${
+              const app = '${statement.url}';
+              const browser = await puppeteer.launch(${
                 statement.browserOptions.length
                   ? JSON.stringify(browserOptions).replace(/"([^"]+)":/g, '$1:')
                   : '{}'
               });
               const page = await browser.newPage();
-              await page.target().createCDPSession();
-              await page.evaluateOnNewDocument(getLargestContentfulPaint);
+              const navigationPromise = page.waitForNavigation();
               await page.goto(app);
     
-              lcp = await page.evaluate(() => window.largestContentfulPaint);
-              
-              paints = await page.evaluate(_ => {
-                const result = {};
-                performance.getEntriesByType('paint').map(entry => {
-                  result[entry.name] = entry.startTime;
-                });
-                return result;
-              });
+              await navigationPromise;
+
+              const getPaints = async () => {
+                firstPaint = JSON.parse(
+                  await page.evaluate(async () =>
+                    await JSON.stringify(performance.getEntriesByName('first-paint'))
+                    )
+                  );
+                
+                paints.push(firstPaint[0].startTime);
+            
+                firstContentfulPaint = JSON.parse(
+                  await page.evaluate(async () =>
+                    await JSON.stringify(performance.getEntriesByName('first-contentful-paint'))
+                  )
+                );
+          
+                paints.push(firstContentfulPaint[0].startTime);
+          
+              };
+          
+              await getPaints();
+
+
               await browser.close();
-            })
+            });
               
             it('${statement.firstPaintIt}', async () => {
-              expect(paints['first-paint']).toBeLessThan(${statement.firstPaintTime})
+              expect(paints[0]).toBeLessThan(${statement.firstPaintTime})
             })
             it('${statement.FCPIt}', async () => {
-              expect(paints['first-contentful-paint']).toBeLessThan(${statement.FCPtTime})
-            })
-            it('${statement.LCPIt}', async () => {
-              expect(paints['first-contentful-paint']).toBeLessThan(${statement.LCPTime})
+              expect(paints[1]).toBeLessThan(${statement.FCPtTime})
             })
           });
         `;

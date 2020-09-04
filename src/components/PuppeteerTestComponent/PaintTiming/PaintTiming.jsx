@@ -99,7 +99,7 @@ const PaintTiming = ({ paintTiming, index }) => {
               </span>
             </div>
           </div>
-          <div id={styles.groupFlexbox}>
+          {/* <div id={styles.groupFlexbox}>
             <label htmlFor='largest-contentful-paint'>Largest Contentful Paint</label>
             <div id={styles.inputFlexBox}>
               <input
@@ -123,7 +123,7 @@ const PaintTiming = ({ paintTiming, index }) => {
                 </span>
               </span>
             </div>
-          </div>
+          </div> */}
         </div>
       )}
     </Draggable>
